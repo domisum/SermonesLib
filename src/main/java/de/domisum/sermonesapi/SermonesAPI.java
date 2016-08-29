@@ -2,6 +2,7 @@ package de.domisum.sermonesapi;
 
 import de.domisum.auxiliumapi.AuxiliumAPI;
 import de.domisum.auxiliumapi.util.java.annotations.APIUsage;
+import de.domisum.sermonesapi.conversation.ConversationManager;
 import org.bukkit.plugin.Plugin;
 
 import java.util.logging.Logger;
@@ -13,6 +14,8 @@ public class SermonesAPI
 	// REFERENCES
 	private static SermonesAPI instance;
 	private Plugin plugin;
+
+	private ConversationManager conversationManager;
 
 
 	// -------
@@ -50,11 +53,16 @@ public class SermonesAPI
 	{
 		AuxiliumAPI.enable(this.plugin);
 
+		this.conversationManager = new ConversationManager();
+		this.conversationManager.initialize();
+
 		getLogger().info(this.getClass().getSimpleName()+" has been enabled");
 	}
 
 	private void onDisable()
 	{
+		this.conversationManager.terminate();
+
 		AuxiliumAPI.disable();
 
 		getLogger().info(this.getClass().getSimpleName()+" has been disabled");
@@ -83,6 +91,12 @@ public class SermonesAPI
 	public Logger getLogger()
 	{
 		return getInstance().plugin.getLogger();
+	}
+
+
+	public static ConversationManager getConversationManager()
+	{
+		return getInstance().conversationManager;
 	}
 
 }
