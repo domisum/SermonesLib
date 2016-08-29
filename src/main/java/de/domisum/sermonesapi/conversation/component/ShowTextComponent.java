@@ -18,6 +18,7 @@ public class ShowTextComponent extends ConversationComponent
 {
 
 	// CONSTANTS
+	private static final double SIDEWARDS_OFFSET = 2.5;
 	private static final double LINE_DISTANCE = 0.25;
 	private static final int MAX_LINE_LENGTH = 30;
 	private static final int NUMBER_OF_LINES = 3;
@@ -117,14 +118,14 @@ public class ShowTextComponent extends ConversationComponent
 
 	private void updateHologramLocations()
 	{
-		Location centerLocation = this.conversation.getBaseLocation();
+		Location offsetLocation = this.conversation.getOffsetLocation(SIDEWARDS_OFFSET);
 
-		double offset = this.holograms.size()*LINE_DISTANCE/2d;
+		double yOffset = this.holograms.size()*LINE_DISTANCE/2d;
 		for(TextHologram h : this.holograms)
 		{
-			h.setLocation(new Vector3D(centerLocation).add(new Vector3D(0, offset, 0)));
+			h.setLocation(new Vector3D(offsetLocation).add(new Vector3D(0, yOffset, 0)));
 
-			offset -= LINE_DISTANCE;
+			yOffset -= LINE_DISTANCE;
 		}
 	}
 
@@ -223,6 +224,9 @@ public class ShowTextComponent extends ConversationComponent
 	}
 
 
+	// -------
+	// UTIL
+	// -------
 	private String recombineFirstWords(String[] words, int numberOfWords)
 	{
 		String string = "";

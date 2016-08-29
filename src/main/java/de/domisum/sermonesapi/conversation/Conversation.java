@@ -1,7 +1,11 @@
 package de.domisum.sermonesapi.conversation;
 
+import de.domisum.auxiliumapi.data.container.math.Vector3D;
+import de.domisum.auxiliumapi.util.bukkit.LocationUtil;
+import de.domisum.auxiliumapi.util.java.annotations.APIUsage;
 import de.domisum.auxiliumapi.util.java.annotations.DeserializationNoArgsConstructor;
 import de.domisum.auxiliumapi.util.java.annotations.SetByDeserialization;
+import de.domisum.auxiliumapi.util.math.VectorUtil;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -82,6 +86,20 @@ public class Conversation
 		return this.baseLocation.clone();
 	}
 
+	public Location getOffsetLocation(double distance)
+	{
+		Location centerLocation = getBaseLocation();
+
+		Location lookLocation = LocationUtil.lookAt(this.player.getLocation(), centerLocation);
+		float lookYaw = lookLocation.getYaw();
+
+		Vector3D offset = new Vector3D(distance, 0, 0);
+		offset = VectorUtil.convertOffsetToMinecraftCoordinates(offset);
+		Vector3D rotatedOffset = VectorUtil.rotateOnXZPlane(offset, -lookYaw);
+
+		return centerLocation.add(rotatedOffset.x, rotatedOffset.y, rotatedOffset.z);
+	}
+
 
 	boolean isTerminated()
 	{
@@ -96,6 +114,16 @@ public class Conversation
 				return c;
 
 		return null;
+	}
+
+
+	// -------
+	// SETTERS
+	// -------
+	@APIUsage
+	public void setBaseLocation(Location baseLocation)
+	{
+		this.baseLocation = baseLocation;
 	}
 
 
