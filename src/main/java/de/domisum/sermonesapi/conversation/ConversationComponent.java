@@ -1,27 +1,43 @@
 package de.domisum.sermonesapi.conversation;
 
-public interface ConversationComponent
+public abstract class ConversationComponent
 {
+
+	// REFERENCES
+	protected transient Conversation conversation;
+
 
 	// -------
 	// CONSTRUCTOR
 	// -------
-	ConversationComponent clone();
+	@Override
+	public abstract ConversationComponent clone();
 
-	void initialize(Conversation conversation);
+	public void initialize(Conversation conversation)
+	{
+		this.conversation = conversation;
+	}
 
-	void terminate();
+	public void terminate()
+	{
+
+	}
 
 
 	// -------
 	// GETTERS
 	// -------
-	String getId();
+	public abstract String getId();
 
 
 	// -------
-	// UPDATING
+	// PROCESS
 	// -------
-	void update();
+	public abstract void update();
+
+	protected void startComponent(String id)
+	{
+		this.conversation.initializeComponent(id);
+	}
 
 }

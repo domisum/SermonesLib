@@ -64,9 +64,8 @@ public class Conversation
 	{
 		this.terminated = true;
 
-		this.activeComponent.terminate();
-
-		// TODO
+		if(this.activeComponent != null)
+			this.activeComponent.terminate();
 	}
 
 
@@ -105,11 +104,20 @@ public class Conversation
 	// -------
 	void update()
 	{
+		if(this.activeComponent == null)
+		{
+			terminate();
+			return;
+		}
+
 		this.activeComponent.update();
 	}
 
-	private void initializeComponent(String id)
+	void initializeComponent(String id)
 	{
+		if(this.activeComponent != null)
+			this.activeComponent.terminate();
+
 		this.activeComponent = getComponent(id);
 		if(this.activeComponent == null)
 			throw new IllegalArgumentException("The conversation component with the id '"+id+"' does not exist!");

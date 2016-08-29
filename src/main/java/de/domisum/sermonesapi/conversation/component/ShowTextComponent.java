@@ -2,6 +2,7 @@ package de.domisum.sermonesapi.conversation.component;
 
 import de.domisum.auxiliumapi.data.container.math.Vector3D;
 import de.domisum.auxiliumapi.util.TextUtil;
+import de.domisum.auxiliumapi.util.java.annotations.APIUsage;
 import de.domisum.auxiliumapi.util.java.annotations.DeserializationNoArgsConstructor;
 import de.domisum.auxiliumapi.util.java.annotations.SetByDeserialization;
 import de.domisum.hologramapi.hologram.Hologram;
@@ -13,7 +14,7 @@ import org.bukkit.Location;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShowTextComponent implements ConversationComponent
+public class ShowTextComponent extends ConversationComponent
 {
 
 	// CONSTANTS
@@ -27,11 +28,12 @@ public class ShowTextComponent implements ConversationComponent
 	@SetByDeserialization
 	private String text;
 
-	// REFERENCES
-	private Conversation conversation;
-	private transient List<TextHologram> holograms = new ArrayList<>();
+	@SetByDeserialization
+	private String successorId;
 
+	// REFERENCES
 	private transient List<String> lines;
+	private transient List<TextHologram> holograms = new ArrayList<>();
 
 	// STATUS
 	private transient int updatesToWait = 0;
@@ -50,22 +52,24 @@ public class ShowTextComponent implements ConversationComponent
 
 	}
 
-	public ShowTextComponent(String id, String text)
+	@APIUsage
+	public ShowTextComponent(String id, String text, String successorId)
 	{
 		this.id = id;
 		this.text = text;
+		this.successorId = successorId;
 	}
 
 	@Override
 	public ShowTextComponent clone()
 	{
-		return new ShowTextComponent(this.id, this.text);
+		return new ShowTextComponent(this.id, this.text, this.successorId);
 	}
 
 	@Override
 	public void initialize(Conversation conversation)
 	{
-		this.conversation = conversation;
+		super.initialize(conversation);
 
 		this.lines = TextUtil.splitTextIntoLinesConsideringNewLines(this.text, MAX_LINE_LENGTH);
 	}
@@ -124,6 +128,14 @@ public class ShowTextComponent implements ConversationComponent
 		}
 	}
 
+	private void finish()
+	{
+		if(this.successorId != null)
+			startComponent(this.successorId);
+		else
+			this.conversation.terminate();
+	}
+
 
 	// -------
 	// TEXT
@@ -145,7 +157,7 @@ public class ShowTextComponent implements ConversationComponent
 		if(this.currentLine >= this.lines.size())
 		{
 			if(this.holograms.size() == 0)
-				this.conversation.terminate();
+				finish();
 			else
 			{
 				this.holograms.remove(0).hideFrom(this.conversation.getPlayer());
