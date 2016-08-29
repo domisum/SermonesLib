@@ -6,6 +6,8 @@ public interface ConversationComponent
 	// -------
 	// CONSTRUCTOR
 	// -------
+	ConversationComponent clone();
+
 	void initialize(Conversation conversation);
 
 	void terminate();

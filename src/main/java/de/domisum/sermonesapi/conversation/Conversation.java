@@ -42,6 +42,16 @@ public class Conversation
 		this.components = components;
 	}
 
+	@Override
+	public Conversation clone()
+	{
+		List<ConversationComponent> componentsClone = new ArrayList<>();
+		for(ConversationComponent component : this.components)
+			componentsClone.add(component.clone());
+
+		return new Conversation(this.startComponentId, componentsClone);
+	}
+
 	void initialize(Player player, Location baseLocation)
 	{
 		this.player = player;

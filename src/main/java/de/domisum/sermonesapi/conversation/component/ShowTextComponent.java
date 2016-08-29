@@ -57,6 +57,12 @@ public class ShowTextComponent implements ConversationComponent
 	}
 
 	@Override
+	public ShowTextComponent clone()
+	{
+		return new ShowTextComponent(this.id, this.text);
+	}
+
+	@Override
 	public void initialize(Conversation conversation)
 	{
 		this.conversation = conversation;
