@@ -25,8 +25,6 @@ public class ShowTextComponent extends ConversationComponent
 
 	// PROPERTIES
 	@SetByDeserialization
-	private String id;
-	@SetByDeserialization
 	private String text;
 
 	@SetByDeserialization
@@ -50,13 +48,13 @@ public class ShowTextComponent extends ConversationComponent
 	@DeserializationNoArgsConstructor
 	public ShowTextComponent()
 	{
-
+		super();
 	}
 
 	@APIUsage
 	public ShowTextComponent(String id, String text, String successorId)
 	{
-		this.id = id;
+		super(id);
 		this.text = text;
 		this.successorId = successorId;
 	}

@@ -1,7 +1,14 @@
 package de.domisum.sermonesapi.conversation;
 
+import de.domisum.auxiliumapi.util.java.annotations.DeserializationNoArgsConstructor;
+import de.domisum.auxiliumapi.util.java.annotations.SetByDeserialization;
+
 public abstract class ConversationComponent
 {
+
+	// PROPERTIES
+	@SetByDeserialization
+	protected String id;
 
 	// REFERENCES
 	protected transient Conversation conversation;
@@ -10,6 +17,18 @@ public abstract class ConversationComponent
 	// -------
 	// CONSTRUCTOR
 	// -------
+	@DeserializationNoArgsConstructor
+	public ConversationComponent()
+	{
+
+	}
+
+	protected ConversationComponent(String id)
+	{
+		this.id = id;
+	}
+
+
 	@Override
 	public abstract ConversationComponent clone();
 
