@@ -1,11 +1,13 @@
 package de.domisum.sermonesapi.conversation;
 
 import de.domisum.auxiliumapi.data.container.math.Vector3D;
+import de.domisum.auxiliumapi.util.TextUtil;
 import de.domisum.auxiliumapi.util.bukkit.LocationUtil;
 import de.domisum.auxiliumapi.util.java.annotations.APIUsage;
 import de.domisum.auxiliumapi.util.java.annotations.DeserializationNoArgsConstructor;
 import de.domisum.auxiliumapi.util.java.annotations.SetByDeserialization;
 import de.domisum.auxiliumapi.util.math.VectorUtil;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -86,18 +88,30 @@ public class Conversation
 		return this.baseLocation.clone();
 	}
 
-	public Location getOffsetLocation(double distance)
+	public Location getOffsetLocation(double offsetDistance)
 	{
 		Location centerLocation = getBaseLocation();
+		Vector3D centerLocationVector = new Vector3D(centerLocation);
+		Vector3D playerLocationVector = new Vector3D(this.player.getLocation());
 
 		Location lookLocation = LocationUtil.lookAt(this.player.getLocation(), centerLocation);
 		float lookYaw = lookLocation.getYaw();
 
-		Vector3D offset = new Vector3D(distance, 0, 0);
-		offset = VectorUtil.convertOffsetToMinecraftCoordinates(offset);
-		Vector3D rotatedOffset = VectorUtil.rotateOnXZPlane(offset, -lookYaw);
+		float rotationYaw = -lookYaw;
 
-		return centerLocation.add(rotatedOffset.x, rotatedOffset.y, rotatedOffset.z);
+		Vector3D distanceVector = playerLocationVector.subtract(centerLocationVector);
+		double distance = distanceVector.xzLength();
+		if(distance <= offsetDistance)
+			distance = offsetDistance+0.1;
+		float additionalRotation = (float) Math.toDegrees(Math.asin(offsetDistance/distance));
+		rotationYaw -= additionalRotation;
+
+		Vector3D offset = new Vector3D(offsetDistance, 0, 0);
+		offset = VectorUtil.convertOffsetToMinecraftCoordinates(offset);
+		Vector3D rotatedOffset = VectorUtil.rotateOnXZPlane(offset, rotationYaw);
+		Vector3D orthogonalPosition = centerLocationVector.add(rotatedOffset);
+
+		return orthogonalPosition.toLocation(centerLocation.getWorld());
 	}
 
 
@@ -151,6 +165,18 @@ public class Conversation
 			throw new IllegalArgumentException("The conversation component with the id '"+id+"' does not exist!");
 		else
 			this.activeComponent.initialize(this);
+	}
+
+
+	// -------
+	// UTIL
+	// -------
+	public static String fillUpText(String text, int desiredLength)
+	{
+		double currentLength = ChatColor.stripColor(text).length();
+		text += TextUtil.repeat(" ", (int) Math.round((desiredLength-currentLength)*1.15));
+
+		return text;
 	}
 
 }

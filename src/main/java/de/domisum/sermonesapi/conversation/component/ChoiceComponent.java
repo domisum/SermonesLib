@@ -2,9 +2,9 @@ package de.domisum.sermonesapi.conversation.component;
 
 import de.domisum.auxiliumapi.util.java.annotations.APIUsage;
 import de.domisum.auxiliumapi.util.java.annotations.DeserializationNoArgsConstructor;
-import de.domisum.hmapi.menu.LocationBoundHologramMenu;
 import de.domisum.sermonesapi.conversation.Conversation;
 import de.domisum.sermonesapi.conversation.ConversationComponent;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +14,13 @@ public class ChoiceComponent extends ConversationComponent
 {
 
 	// CONSTANTS
-	private static final double SIDEWARDS_OFFSET = 2;
+	private static final double SIDEWARDS_OFFSET = 2.5;
 
 	// PROPERTIES
 	List<Choice> choices = new ArrayList<>();
 
 	// STATUS
-	private LocationBoundHologramMenu menu;
+	private ChoiceHologramMenu menu;
 
 
 	// -------
@@ -54,6 +54,14 @@ public class ChoiceComponent extends ConversationComponent
 		createMenu();
 	}
 
+	@Override
+	public void terminate()
+	{
+		super.terminate();
+
+		if(this.menu != null)
+			this.menu.terminate();
+	}
 
 	// -------
 	// GETTERS
@@ -94,6 +102,10 @@ public class ChoiceComponent extends ConversationComponent
 
 		// PROPERTIES
 		private String text;
+		private ItemStack symbolLeft;
+		private ItemStack symbolRight;
+
+		private String succesorId;
 
 
 		// -------
@@ -106,19 +118,54 @@ public class ChoiceComponent extends ConversationComponent
 		}
 
 		@APIUsage
-		public Choice(String text)
+		public Choice(String text, String succesorId)
 		{
 			this.text = text;
+			this.succesorId = succesorId;
 		}
 
 
 		// -------
 		// GETTERS
 		// -------
-		public String getText()
+		String getText()
 		{
 			return this.text;
 		}
+
+		String getSuccesorId()
+		{
+			return this.succesorId;
+		}
+
+		ItemStack getSymbolLeft()
+		{
+			return this.symbolLeft;
+		}
+
+		ItemStack getSymbolRight()
+		{
+			return this.symbolRight;
+		}
+
+
+		// -------
+		// SETTERS
+		// -------
+		@APIUsage
+		public Choice setSymbolLeft(ItemStack symbolLeft)
+		{
+			this.symbolLeft = symbolLeft;
+			return this;
+		}
+
+		@APIUsage
+		public Choice setSymbolRight(ItemStack symbolRight)
+		{
+			this.symbolRight = symbolRight;
+			return this;
+		}
+
 	}
 
 }

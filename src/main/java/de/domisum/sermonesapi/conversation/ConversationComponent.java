@@ -48,13 +48,18 @@ public abstract class ConversationComponent
 	// -------
 	public abstract String getId();
 
+	public Conversation getConversation()
+	{
+		return this.conversation;
+	}
+
 
 	// -------
 	// PROCESS
 	// -------
 	public abstract void update();
 
-	protected void startComponent(String id)
+	public void startComponent(String id)
 	{
 		this.conversation.initializeComponent(id);
 	}

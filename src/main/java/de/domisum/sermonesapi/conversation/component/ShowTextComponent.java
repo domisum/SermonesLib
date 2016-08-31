@@ -172,7 +172,7 @@ public class ShowTextComponent extends ConversationComponent
 
 		String displayLine = recombineFirstWords(splitLine, this.currentWord+1);
 		// displayLine += ChatColor.MAGIC+line.substring(displayLine.length());
-		displayLine += TextUtil.repeat(" ", (int) Math.round((line.length()-displayLine.length())*1.15));
+		displayLine = Conversation.fillUpText(displayLine, line.length());
 
 		// create new hologram or update text for existing one
 		if(this.currentWord == 0)
