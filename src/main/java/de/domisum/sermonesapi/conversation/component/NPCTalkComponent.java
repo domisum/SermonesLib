@@ -14,30 +14,30 @@ import org.bukkit.Location;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShowTextComponent extends ConversationComponent
+public class NPCTalkComponent extends ConversationComponent
 {
 
 	// CONSTANTS
-	private static final double SIDEWARDS_OFFSET = 2.5;
-	private static final double LINE_DISTANCE = 0.25;
+	static final double SIDEWARDS_OFFSET = 2.5;
+	static final double LINE_DISTANCE = 0.25;
 	private static final int MAX_LINE_LENGTH = 30;
 	private static final int NUMBER_OF_LINES = 3;
 
 	// PROPERTIES
 	@SetByDeserialization
-	private String text;
+	protected String text;
 
 	@SetByDeserialization
-	private String successorId;
+	protected String successorId;
 
 	// REFERENCES
-	private transient List<String> lines;
-	private transient List<TextHologram> holograms = new ArrayList<>();
+	transient List<String> lines;
+	transient List<TextHologram> holograms = new ArrayList<>();
 
 	// STATUS
-	private transient int updatesToWait = 0;
+	transient int updatesToWait = 0;
 
-	private transient int currentLine = 0;
+	transient int currentLine = 0;
 	private transient int currentWord = 0;
 	private transient int hologramLineOffset = 0;
 
@@ -46,13 +46,13 @@ public class ShowTextComponent extends ConversationComponent
 	// CONSTRUCTOR
 	// -------
 	@DeserializationNoArgsConstructor
-	public ShowTextComponent()
+	public NPCTalkComponent()
 	{
 		super();
 	}
 
 	@APIUsage
-	public ShowTextComponent(String id, String text, String successorId)
+	public NPCTalkComponent(String id, String text, String successorId)
 	{
 		super(id);
 		this.text = text;
@@ -60,9 +60,9 @@ public class ShowTextComponent extends ConversationComponent
 	}
 
 	@Override
-	public ShowTextComponent clone()
+	public NPCTalkComponent clone()
 	{
-		return new ShowTextComponent(this.id, this.text, this.successorId);
+		return new NPCTalkComponent(this.id, this.text, this.successorId);
 	}
 
 	@Override
@@ -80,6 +80,7 @@ public class ShowTextComponent extends ConversationComponent
 
 		for(Hologram hg : this.holograms)
 			hg.hideFrom(this.conversation.getPlayer());
+		this.holograms.clear();
 
 		this.currentLine = 0;
 		this.currentWord = 0;
@@ -120,7 +121,7 @@ public class ShowTextComponent extends ConversationComponent
 		updateText();
 	}
 
-	private void updateHologramLocations()
+	protected void updateHologramLocations()
 	{
 		Location offsetLocation = this.conversation.getOffsetLocation(SIDEWARDS_OFFSET);
 
@@ -156,9 +157,9 @@ public class ShowTextComponent extends ConversationComponent
 		addWord();
 	}
 
-	private void addWord()
+	protected void addWord()
 	{
-		// if all lines have been written, terminate the conversation
+		// if all lines have been written, finish this component
 		if(this.currentLine >= this.lines.size())
 		{
 			if(this.holograms.size() == 0)
@@ -166,7 +167,7 @@ public class ShowTextComponent extends ConversationComponent
 			else
 			{
 				this.holograms.remove(0).hideFrom(this.conversation.getPlayer());
-				this.updatesToWait += 10;
+				this.updatesToWait += 5;
 			}
 
 			return;
@@ -209,7 +210,7 @@ public class ShowTextComponent extends ConversationComponent
 
 		// waiting at the end of the speech
 		if(this.currentLine >= this.lines.size())
-			this.updatesToWait = 60;
+			this.updatesToWait += 20;
 	}
 
 	private void createNewHologram(String text)
