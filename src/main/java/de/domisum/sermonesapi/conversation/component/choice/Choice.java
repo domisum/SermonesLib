@@ -4,6 +4,7 @@ import de.domisum.auxiliumapi.util.java.annotations.APIUsage;
 import de.domisum.auxiliumapi.util.java.annotations.DeserializationNoArgsConstructor;
 import org.bukkit.inventory.ItemStack;
 
+@APIUsage
 public class Choice
 {
 
