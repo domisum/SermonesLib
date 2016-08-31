@@ -76,8 +76,14 @@ public class ShowTextComponent extends ConversationComponent
 	@Override
 	public void terminate()
 	{
+		super.terminate();
+
 		for(Hologram hg : this.holograms)
 			hg.hideFrom(this.conversation.getPlayer());
+
+		this.currentLine = 0;
+		this.currentWord = 0;
+		this.hologramLineOffset = 0;
 	}
 
 

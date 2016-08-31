@@ -1,4 +1,4 @@
-package de.domisum.sermonesapi.conversation.component;
+package de.domisum.sermonesapi.conversation.component.choice;
 
 import de.domisum.auxiliumapi.data.container.math.Vector3D;
 import de.domisum.hmapi.component.HologramMenuComponent;
@@ -41,7 +41,7 @@ class ChoiceHologramMenu extends LocationBoundHologramMenu
 	{
 		double dY = LINE_DISTANCE*this.choiceComponent.choices.size()/2d;
 
-		for(ChoiceComponent.Choice choice : this.choiceComponent.choices)
+		for(Choice choice : this.choiceComponent.choices)
 		{
 			TextHologram thg = new TextHologram(processText(choice.getText()));
 			HologramMenuComponent hmc = new HologramMenuComponent(thg)

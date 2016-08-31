@@ -1,10 +1,9 @@
-package de.domisum.sermonesapi.conversation.component;
+package de.domisum.sermonesapi.conversation.component.choice;
 
 import de.domisum.auxiliumapi.util.java.annotations.APIUsage;
 import de.domisum.auxiliumapi.util.java.annotations.DeserializationNoArgsConstructor;
 import de.domisum.sermonesapi.conversation.Conversation;
 import de.domisum.sermonesapi.conversation.ConversationComponent;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,82 +89,6 @@ public class ChoiceComponent extends ConversationComponent
 	{
 		this.menu = new ChoiceHologramMenu(this.conversation.getPlayer(), this.conversation.getOffsetLocation(SIDEWARDS_OFFSET),
 				this);
-	}
-
-
-	// -------
-	// CHOICE
-	// -------
-	@APIUsage
-	public static class Choice
-	{
-
-		// PROPERTIES
-		private String text;
-		private ItemStack symbolLeft;
-		private ItemStack symbolRight;
-
-		private String succesorId;
-
-
-		// -------
-		// CONSTRUCTOR
-		// -------
-		@DeserializationNoArgsConstructor
-		public Choice()
-		{
-
-		}
-
-		@APIUsage
-		public Choice(String text, String succesorId)
-		{
-			this.text = text;
-			this.succesorId = succesorId;
-		}
-
-
-		// -------
-		// GETTERS
-		// -------
-		String getText()
-		{
-			return this.text;
-		}
-
-		String getSuccesorId()
-		{
-			return this.succesorId;
-		}
-
-		ItemStack getSymbolLeft()
-		{
-			return this.symbolLeft;
-		}
-
-		ItemStack getSymbolRight()
-		{
-			return this.symbolRight;
-		}
-
-
-		// -------
-		// SETTERS
-		// -------
-		@APIUsage
-		public Choice setSymbolLeft(ItemStack symbolLeft)
-		{
-			this.symbolLeft = symbolLeft;
-			return this;
-		}
-
-		@APIUsage
-		public Choice setSymbolRight(ItemStack symbolRight)
-		{
-			this.symbolRight = symbolRight;
-			return this;
-		}
-
 	}
 
 }
