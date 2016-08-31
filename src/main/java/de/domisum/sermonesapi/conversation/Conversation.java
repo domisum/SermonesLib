@@ -103,7 +103,7 @@ public class Conversation
 		double distance = distanceVector.xzLength();
 		if(distance <= offsetDistance)
 			distance = offsetDistance+0.1;
-		float additionalRotation = (float) Math.toDegrees(Math.asin(offsetDistance/distance));
+		float additionalRotation = (float) Math.toDegrees(Math.asin(offsetDistance/1.5/distance));
 		rotationYaw -= additionalRotation;
 
 		Vector3D offset = new Vector3D(offsetDistance, 0, 0);
