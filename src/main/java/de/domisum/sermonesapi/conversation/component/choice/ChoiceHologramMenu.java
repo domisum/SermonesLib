@@ -13,12 +13,6 @@ import org.bukkit.inventory.ItemStack;
 
 class ChoiceHologramMenu extends LocationBoundHologramMenu
 {
-	// CONSTANT
-	private static final double Y_OFFSET = 0.0;
-	private static final double LINE_DISTANCE = 0.35;
-	private static final double SYMBOL_OFFSET = 0.3;
-
-	private static final int LINE_FILL_LENGTH = 15;
 
 	// REFERENCES
 	private ChoiceComponent choiceComponent;
@@ -29,8 +23,9 @@ class ChoiceHologramMenu extends LocationBoundHologramMenu
 	// -------
 	ChoiceHologramMenu(Player player, Location location, ChoiceComponent choiceComponent)
 	{
-		super(player, location.clone().add(0, Y_OFFSET, 0));
+		super(player, location);
 		this.choiceComponent = choiceComponent;
+		setLocation(location); // this is needed so the yOffset is applied from the start
 
 		addComponents();
 
@@ -39,7 +34,7 @@ class ChoiceHologramMenu extends LocationBoundHologramMenu
 
 	private void addComponents()
 	{
-		double dY = LINE_DISTANCE*this.choiceComponent.choices.size()/2d;
+		double dY = ChoiceComponent.LINE_DISTANCE*this.choiceComponent.choices.size()/2d;
 
 		for(Choice choice : this.choiceComponent.choices)
 		{
@@ -72,7 +67,7 @@ class ChoiceHologramMenu extends LocationBoundHologramMenu
 			addSymbol(thg, dY, -1, choice.getSymbolLeft());
 			addSymbol(thg, dY, 1, choice.getSymbolRight());
 
-			dY -= LINE_DISTANCE;
+			dY -= ChoiceComponent.LINE_DISTANCE;
 		}
 	}
 
@@ -83,13 +78,27 @@ class ChoiceHologramMenu extends LocationBoundHologramMenu
 
 		ItemHologram ihg = new ItemHologram(symbol);
 		HologramMenuComponent hmc = new HologramMenuComponent(ihg);
-		this.components.put(hmc, new Vector3D((textHologram.getWidth()/2+SYMBOL_OFFSET)*direction, dY, 0));
+		this.components.put(hmc, new Vector3D((textHologram.getWidth()/2+ChoiceComponent.SYMBOL_OFFSET)*direction, dY, 0));
 	}
 
+
+	// -------
+	// GETTERS
+	// -------
+	double getYOffset()
+	{
+		// move upwards if number of choices > 3
+		return Math.max(0, this.choiceComponent.choices.size()-3)*ChoiceComponent.LINE_DISTANCE;
+	}
+
+
+	// -------
+	// SETTERS
+	// -------
 	@Override
 	public void setLocation(Location location)
 	{
-		super.setLocation(location.clone().add(0, Y_OFFSET, 0));
+		super.setLocation(location.clone().add(0, getYOffset(), 0));
 	}
 
 
@@ -98,7 +107,7 @@ class ChoiceHologramMenu extends LocationBoundHologramMenu
 	// -------
 	private static String processText(String text)
 	{
-		text = Conversation.fillUpText(text, LINE_FILL_LENGTH);
+		text = Conversation.fillUpText(text, ChoiceComponent.LINE_FILL_LENGTH);
 		return text;
 	}
 

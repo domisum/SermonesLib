@@ -1,9 +1,14 @@
 package de.domisum.sermonesapi.conversation.component.choice;
 
+import de.domisum.auxiliumapi.data.container.math.Vector3D;
 import de.domisum.auxiliumapi.util.java.annotations.APIUsage;
 import de.domisum.auxiliumapi.util.java.annotations.DeserializationNoArgsConstructor;
+import de.domisum.auxiliumapi.util.math.MathUtil;
+import de.domisum.hologramapi.hologram.TextHologram;
 import de.domisum.sermonesapi.conversation.Conversation;
 import de.domisum.sermonesapi.conversation.ConversationComponent;
+import org.bukkit.ChatColor;
+import org.bukkit.Location;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,11 +20,22 @@ public class ChoiceComponent extends ConversationComponent
 	// CONSTANTS
 	private static final double SIDEWARDS_OFFSET = 2.5;
 
+	static final double LINE_DISTANCE = 0.35;
+	static final double SYMBOL_OFFSET = 0.3;
+
+	static final int LINE_FILL_LENGTH = 15;
+
 	// PROPERTIES
 	List<Choice> choices = new ArrayList<>();
 
+	private int timeoutMs;
+	private String timeoutComponentId;
+
 	// STATUS
+	private TextHologram timeoutDisplay;
 	private ChoiceHologramMenu menu;
+
+	private long startTime;
 
 
 	// -------
@@ -42,7 +58,10 @@ public class ChoiceComponent extends ConversationComponent
 	@Override
 	public ChoiceComponent clone()
 	{
-		return new ChoiceComponent(this.id, this.choices);
+		ChoiceComponent choiceComponent = new ChoiceComponent(this.id, this.choices);
+		choiceComponent.setTimeout(this.timeoutMs, this.timeoutComponentId);
+
+		return choiceComponent;
 	}
 
 	@Override
@@ -50,6 +69,7 @@ public class ChoiceComponent extends ConversationComponent
 	{
 		super.initialize(conversation);
 
+		this.startTime = System.currentTimeMillis();
 		createMenu();
 	}
 
@@ -60,7 +80,17 @@ public class ChoiceComponent extends ConversationComponent
 
 		if(this.menu != null)
 			this.menu.terminate();
+
+		if(this.timeoutDisplay != null)
+		{
+			this.timeoutDisplay.hideFrom(this.conversation.getPlayer());
+			this.timeoutDisplay = null;
+		}
+
+		// reset
+		this.startTime = 0;
 	}
+
 
 	// -------
 	// GETTERS
@@ -71,6 +101,24 @@ public class ChoiceComponent extends ConversationComponent
 		return this.id;
 	}
 
+	public boolean hasTimeout()
+	{
+		return this.timeoutMs != 0;
+	}
+
+
+	// -------
+	// SETTERS
+	// -------
+	@APIUsage
+	public ChoiceComponent setTimeout(int timeoutMs, String timeoutComponentId)
+	{
+		this.timeoutMs = timeoutMs;
+		this.timeoutComponentId = timeoutComponentId;
+
+		return this;
+	}
+
 
 	// -------
 	// UPDATING
@@ -79,6 +127,19 @@ public class ChoiceComponent extends ConversationComponent
 	public void update()
 	{
 		this.menu.setLocation(this.conversation.getOffsetLocation(SIDEWARDS_OFFSET));
+
+		if(hasTimeout())
+			if(getTimeoutMsLeft() <= 0)
+			{
+				startComponent(this.timeoutComponentId);
+				return;
+			}
+
+		if(this.timeoutDisplay != null)
+		{
+			this.timeoutDisplay.setText(getTimeoutString());
+			this.timeoutDisplay.setLocation(new Vector3D(getTimeoutDisplayLocation()));
+		}
 	}
 
 
@@ -89,6 +150,37 @@ public class ChoiceComponent extends ConversationComponent
 	{
 		this.menu = new ChoiceHologramMenu(this.conversation.getPlayer(), this.conversation.getOffsetLocation(SIDEWARDS_OFFSET),
 				this);
+
+		if(hasTimeout())
+		{
+			this.timeoutDisplay = new TextHologram(getTimeoutDisplayLocation(), getTimeoutString());
+			this.timeoutDisplay.showTo(this.conversation.getPlayer());
+		}
+	}
+
+
+	// -------
+	// TIMEOUT
+	// -------
+	private long getTimeoutMsLeft()
+	{
+		return this.timeoutMs-(System.currentTimeMillis()-this.startTime);
+	}
+
+	private Location getTimeoutDisplayLocation()
+	{
+		Location location = this.conversation.getOffsetLocation(SIDEWARDS_OFFSET);
+		location.add(0, this.menu.getYOffset()+((this.choices.size()/2d)+1)*LINE_DISTANCE, 0);
+
+		return location;
+	}
+
+	private String getTimeoutString()
+	{
+		double secondsLeft = MathUtil.round(getTimeoutMsLeft()/1000d, 1);
+		String display = ChatColor.DARK_RED.toString()+secondsLeft;
+
+		return display;
 	}
 
 }
