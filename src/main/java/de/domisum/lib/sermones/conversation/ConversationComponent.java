@@ -1,7 +1,7 @@
-package de.domisum.sermonesapi.conversation;
+package de.domisum.lib.sermones.conversation;
 
-import de.domisum.auxiliumapi.util.java.annotations.DeserializationNoArgsConstructor;
-import de.domisum.auxiliumapi.util.java.annotations.SetByDeserialization;
+import de.domisum.lib.auxilium.util.java.annotations.DeserializationNoArgsConstructor;
+import de.domisum.lib.auxilium.util.java.annotations.SetByDeserialization;
 
 public abstract class ConversationComponent
 {

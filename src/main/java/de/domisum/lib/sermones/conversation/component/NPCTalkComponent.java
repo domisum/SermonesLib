@@ -1,14 +1,14 @@
-package de.domisum.sermonesapi.conversation.component;
+package de.domisum.lib.sermones.conversation.component;
 
-import de.domisum.auxiliumapi.data.container.math.Vector3D;
-import de.domisum.auxiliumapi.util.TextUtil;
-import de.domisum.auxiliumapi.util.java.annotations.APIUsage;
-import de.domisum.auxiliumapi.util.java.annotations.DeserializationNoArgsConstructor;
-import de.domisum.auxiliumapi.util.java.annotations.SetByDeserialization;
+import de.domisum.lib.auxilium.data.container.math.Vector3D;
+import de.domisum.lib.auxilium.util.TextUtil;
+import de.domisum.lib.auxilium.util.java.annotations.APIUsage;
+import de.domisum.lib.auxilium.util.java.annotations.DeserializationNoArgsConstructor;
+import de.domisum.lib.auxilium.util.java.annotations.SetByDeserialization;
 import de.domisum.lib.hologram.hologram.Hologram;
 import de.domisum.lib.hologram.hologram.TextHologram;
-import de.domisum.sermonesapi.conversation.Conversation;
-import de.domisum.sermonesapi.conversation.ConversationComponent;
+import de.domisum.lib.sermones.conversation.Conversation;
+import de.domisum.lib.sermones.conversation.ConversationComponent;
 import org.bukkit.Location;
 
 import java.util.ArrayList;

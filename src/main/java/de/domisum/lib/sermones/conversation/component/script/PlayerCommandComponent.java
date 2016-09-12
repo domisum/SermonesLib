@@ -1,8 +1,8 @@
-package de.domisum.sermonesapi.conversation.component.script;
+package de.domisum.lib.sermones.conversation.component.script;
 
-import de.domisum.auxiliumapi.util.java.annotations.APIUsage;
-import de.domisum.auxiliumapi.util.java.annotations.DeserializationNoArgsConstructor;
-import de.domisum.sermonesapi.conversation.ConversationComponent;
+import de.domisum.lib.auxilium.util.java.annotations.APIUsage;
+import de.domisum.lib.auxilium.util.java.annotations.DeserializationNoArgsConstructor;
+import de.domisum.lib.sermones.conversation.ConversationComponent;
 import org.bukkit.Bukkit;
 
 @APIUsage

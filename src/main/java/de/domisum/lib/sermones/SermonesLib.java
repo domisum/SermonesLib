@@ -1,19 +1,19 @@
-package de.domisum.sermonesapi;
+package de.domisum.lib.sermones;
 
-import de.domisum.auxiliumapi.AuxiliumAPI;
-import de.domisum.auxiliumapi.util.java.annotations.APIUsage;
+import de.domisum.lib.auxilium.AuxiliumLib;
+import de.domisum.lib.auxilium.util.java.annotations.APIUsage;
 import de.domisum.lib.hologrammenu.HologramMenuLib;
-import de.domisum.sermonesapi.conversation.ConversationManager;
+import de.domisum.lib.sermones.conversation.ConversationManager;
 import org.bukkit.plugin.Plugin;
 
 import java.util.logging.Logger;
 
 @APIUsage
-public class SermonesAPI
+public class SermonesLib
 {
 
 	// REFERENCES
-	private static SermonesAPI instance;
+	private static SermonesLib instance;
 	private Plugin plugin;
 
 	private ConversationManager conversationManager;
@@ -22,7 +22,7 @@ public class SermonesAPI
 	// -------
 	// CONSTRUCTOR
 	// -------
-	private SermonesAPI(Plugin plugin)
+	private SermonesLib(Plugin plugin)
 	{
 		instance = this;
 		this.plugin = plugin;
@@ -36,7 +36,7 @@ public class SermonesAPI
 		if(instance != null)
 			return;
 
-		new SermonesAPI(plugin);
+		new SermonesLib(plugin);
 	}
 
 	@APIUsage
@@ -52,7 +52,7 @@ public class SermonesAPI
 
 	private void onEnable()
 	{
-		AuxiliumAPI.enable(this.plugin);
+		AuxiliumLib.enable(this.plugin);
 		HologramMenuLib.enable(this.plugin);
 
 		this.conversationManager = new ConversationManager();
@@ -66,7 +66,7 @@ public class SermonesAPI
 		this.conversationManager.terminate();
 
 		HologramMenuLib.disable();
-		AuxiliumAPI.disable();
+		AuxiliumLib.disable();
 
 		getLogger().info(this.getClass().getSimpleName()+" has been disabled");
 	}
@@ -76,10 +76,10 @@ public class SermonesAPI
 	// GETTERS
 	// -------
 	@APIUsage
-	public static SermonesAPI getInstance()
+	public static SermonesLib getInstance()
 	{
 		if(instance == null)
-			throw new IllegalArgumentException(SermonesAPI.class.getSimpleName()+" has to be initialized before usage");
+			throw new IllegalArgumentException(SermonesLib.class.getSimpleName()+" has to be initialized before usage");
 
 		return instance;
 	}

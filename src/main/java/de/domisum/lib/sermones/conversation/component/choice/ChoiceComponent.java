@@ -1,12 +1,12 @@
-package de.domisum.sermonesapi.conversation.component.choice;
+package de.domisum.lib.sermones.conversation.component.choice;
 
-import de.domisum.auxiliumapi.data.container.math.Vector3D;
-import de.domisum.auxiliumapi.util.java.annotations.APIUsage;
-import de.domisum.auxiliumapi.util.java.annotations.DeserializationNoArgsConstructor;
-import de.domisum.auxiliumapi.util.math.MathUtil;
+import de.domisum.lib.auxilium.data.container.math.Vector3D;
+import de.domisum.lib.auxilium.util.java.annotations.APIUsage;
+import de.domisum.lib.auxilium.util.java.annotations.DeserializationNoArgsConstructor;
+import de.domisum.lib.auxilium.util.math.MathUtil;
 import de.domisum.lib.hologram.hologram.TextHologram;
-import de.domisum.sermonesapi.conversation.Conversation;
-import de.domisum.sermonesapi.conversation.ConversationComponent;
+import de.domisum.lib.sermones.conversation.Conversation;
+import de.domisum.lib.sermones.conversation.ConversationComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 

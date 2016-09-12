@@ -1,12 +1,12 @@
-package de.domisum.sermonesapi.conversation;
+package de.domisum.lib.sermones.conversation;
 
-import de.domisum.auxiliumapi.data.container.math.Vector3D;
-import de.domisum.auxiliumapi.util.TextUtil;
-import de.domisum.auxiliumapi.util.bukkit.LocationUtil;
-import de.domisum.auxiliumapi.util.java.annotations.APIUsage;
-import de.domisum.auxiliumapi.util.java.annotations.DeserializationNoArgsConstructor;
-import de.domisum.auxiliumapi.util.java.annotations.SetByDeserialization;
-import de.domisum.auxiliumapi.util.math.VectorUtil;
+import de.domisum.lib.auxilium.data.container.math.Vector3D;
+import de.domisum.lib.auxilium.util.TextUtil;
+import de.domisum.lib.auxilium.util.bukkit.LocationUtil;
+import de.domisum.lib.auxilium.util.java.annotations.APIUsage;
+import de.domisum.lib.auxilium.util.java.annotations.DeserializationNoArgsConstructor;
+import de.domisum.lib.auxilium.util.java.annotations.SetByDeserialization;
+import de.domisum.lib.auxilium.util.math.VectorUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;

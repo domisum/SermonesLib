@@ -1,7 +1,7 @@
-package de.domisum.sermonesapi.conversation.component.choice;
+package de.domisum.lib.sermones.conversation.component.choice;
 
-import de.domisum.auxiliumapi.util.java.annotations.APIUsage;
-import de.domisum.auxiliumapi.util.java.annotations.DeserializationNoArgsConstructor;
+import de.domisum.lib.auxilium.util.java.annotations.APIUsage;
+import de.domisum.lib.auxilium.util.java.annotations.DeserializationNoArgsConstructor;
 import org.bukkit.inventory.ItemStack;
 
 @APIUsage

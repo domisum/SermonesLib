@@ -1,7 +1,7 @@
-package de.domisum.sermonesapi.conversation;
+package de.domisum.lib.sermones.conversation;
 
-import de.domisum.auxiliumapi.data.structure.pds.PlayerKeyMap;
-import de.domisum.sermonesapi.SermonesAPI;
+import de.domisum.lib.auxilium.data.structure.pds.PlayerKeyMap;
+import de.domisum.lib.sermones.SermonesLib;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -63,7 +63,7 @@ public class ConversationManager
 		if(this.updateTask != null)
 			return;
 
-		this.updateTask = Bukkit.getScheduler().runTaskTimer(SermonesAPI.getPlugin(), this::update, 1, 1);
+		this.updateTask = Bukkit.getScheduler().runTaskTimer(SermonesLib.getPlugin(), this::update, 1, 1);
 	}
 
 	private void stopUpdateTask()

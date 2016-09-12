@@ -1,11 +1,11 @@
-package de.domisum.sermonesapi.conversation.component.choice;
+package de.domisum.lib.sermones.conversation.component.choice;
 
-import de.domisum.auxiliumapi.data.container.math.Vector3D;
-import de.domisum.lib.hologrammenu.component.HologramMenuComponent;
-import de.domisum.lib.hologrammenu.menu.LocationBoundHologramMenu;
+import de.domisum.lib.auxilium.data.container.math.Vector3D;
 import de.domisum.lib.hologram.hologram.TextHologram;
 import de.domisum.lib.hologram.hologram.item.ItemHologram;
-import de.domisum.sermonesapi.conversation.Conversation;
+import de.domisum.lib.hologrammenu.component.HologramMenuComponent;
+import de.domisum.lib.hologrammenu.menu.LocationBoundHologramMenu;
+import de.domisum.lib.sermones.conversation.Conversation;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
