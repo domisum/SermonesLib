@@ -2,7 +2,7 @@ package de.domisum.sermonesapi;
 
 import de.domisum.auxiliumapi.AuxiliumAPI;
 import de.domisum.auxiliumapi.util.java.annotations.APIUsage;
-import de.domisum.hmapi.HologramMenuAPI;
+import de.domisum.lib.hologrammenu.HologramMenuLib;
 import de.domisum.sermonesapi.conversation.ConversationManager;
 import org.bukkit.plugin.Plugin;
 
@@ -53,7 +53,7 @@ public class SermonesAPI
 	private void onEnable()
 	{
 		AuxiliumAPI.enable(this.plugin);
-		HologramMenuAPI.enable(this.plugin);
+		HologramMenuLib.enable(this.plugin);
 
 		this.conversationManager = new ConversationManager();
 		this.conversationManager.initialize();
@@ -65,7 +65,7 @@ public class SermonesAPI
 	{
 		this.conversationManager.terminate();
 
-		HologramMenuAPI.disable();
+		HologramMenuLib.disable();
 		AuxiliumAPI.disable();
 
 		getLogger().info(this.getClass().getSimpleName()+" has been disabled");

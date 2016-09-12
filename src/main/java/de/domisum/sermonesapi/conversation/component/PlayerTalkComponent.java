@@ -3,7 +3,7 @@ package de.domisum.sermonesapi.conversation.component;
 import de.domisum.auxiliumapi.data.container.math.Vector3D;
 import de.domisum.auxiliumapi.util.java.annotations.APIUsage;
 import de.domisum.auxiliumapi.util.java.annotations.DeserializationNoArgsConstructor;
-import de.domisum.hologramapi.hologram.TextHologram;
+import de.domisum.lib.hologram.hologram.TextHologram;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 
