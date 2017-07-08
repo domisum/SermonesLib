@@ -19,8 +19,8 @@ public class NPCTalkComponent extends ConversationComponent
 {
 
 	// CONSTANTS
-	static final double SIDEWARDS_OFFSET = 2.5;
-	static final double LINE_DISTANCE = 0.25;
+	protected static final double SIDEWARDS_OFFSET = 2.5;
+	protected static final double LINE_DISTANCE = 0.25;
 	private static final int MAX_LINE_LENGTH = 30;
 	private static final int NUMBER_OF_LINES = 3;
 
@@ -30,13 +30,13 @@ public class NPCTalkComponent extends ConversationComponent
 	@SetByDeserialization protected String successorId;
 
 	// REFERENCES
-	transient List<String> lines;
-	transient List<TextHologram> holograms = new ArrayList<>();
+	protected transient List<String> lines;
+	protected transient List<TextHologram> holograms = new ArrayList<>();
 
 	// STATUS
-	transient int updatesToWait = 0;
+	protected transient int updatesToWait = 0;
 
-	transient int currentLine = 0;
+	protected transient int currentLine = 0;
 	private transient int currentWord = 0;
 	private transient int hologramLineOffset = 0;
 
