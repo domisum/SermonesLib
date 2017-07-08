@@ -112,12 +112,11 @@ public class ChoiceComponent extends ConversationComponent
 	{
 		this.menu.setLocation(this.conversation.getOffsetLocation(SIDEWARDS_OFFSET));
 
-		if(hasTimeout())
-			if(getTimeoutMsLeft() <= 0)
-			{
-				startComponent(this.timeoutComponentId);
-				return;
-			}
+		if(hasTimeout() && getTimeoutMsLeft() <= 0)
+		{
+			startComponent(this.timeoutComponentId);
+			return;
+		}
 
 		if(this.timeoutDisplay != null)
 		{
