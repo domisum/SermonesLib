@@ -21,7 +21,6 @@ public class SermonesLib
 	// INIT
 	private SermonesLib(Plugin plugin)
 	{
-		instance = this;
 		this.plugin = plugin;
 
 		onEnable();
@@ -32,7 +31,7 @@ public class SermonesLib
 		if(instance != null)
 			return;
 
-		new SermonesLib(plugin);
+		instance = new SermonesLib(plugin);
 	}
 
 	@APIUsage public static void disable()
