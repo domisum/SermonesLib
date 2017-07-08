@@ -95,8 +95,7 @@ class ChoiceHologramMenu extends LocationBoundHologramMenu
 	// UTIL
 	private static String processText(String text)
 	{
-		text = Conversation.fillUpText(text, ChoiceComponent.LINE_FILL_LENGTH);
-		return text;
+		return Conversation.fillUpText(text, ChoiceComponent.LINE_FILL_LENGTH);
 	}
 
 }
