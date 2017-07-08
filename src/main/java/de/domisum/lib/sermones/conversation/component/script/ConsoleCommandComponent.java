@@ -11,8 +11,8 @@ public class ConsoleCommandComponent extends ConversationComponent
 {
 
 	// PROPERTIES
-	String command;
-	String successorId;
+	protected String command;
+	protected String successorId;
 
 
 	// INIT
@@ -52,12 +52,12 @@ public class ConsoleCommandComponent extends ConversationComponent
 	// UPDATING
 	@Override public void update()
 	{
-
+		// nothing to update
 	}
 
 
 	// COMMAND
-	void executeCommand()
+	protected void executeCommand()
 	{
 		Bukkit.dispatchCommand(Bukkit.getServer().getConsoleSender(), this.command);
 	}
