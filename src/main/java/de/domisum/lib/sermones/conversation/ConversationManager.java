@@ -1,5 +1,6 @@
 package de.domisum.lib.sermones.conversation;
 
+import de.domisum.lib.auxilium.util.java.annotations.APIUsage;
 import de.domisum.lib.auxiliumspigot.data.structure.pds.PlayerKeyMap;
 import de.domisum.lib.sermones.SermonesLib;
 import org.bukkit.Bukkit;
@@ -41,7 +42,7 @@ public class ConversationManager
 
 
 	// CHANGERS
-	public void startConversation(Conversation conversation, Player player, Location location)
+	@APIUsage public void startConversation(Conversation conversation, Player player, Location location)
 	{
 		if(this.conversations.containsKey(player))
 			this.conversations.get(player).terminate();

@@ -44,7 +44,7 @@ public class Conversation
 		this.components = components;
 	}
 
-	public Conversation copy()
+	@APIUsage public Conversation copy()
 	{
 		List<ConversationComponent> componentsClone = new ArrayList<>();
 		for(ConversationComponent component : this.components)
