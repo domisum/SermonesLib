@@ -26,7 +26,6 @@ public class NPCTalkComponent extends ConversationComponent
 
 	// PROPERTIES
 	@SetByDeserialization protected String text;
-
 	@SetByDeserialization protected String successorId;
 
 	// REFERENCES
@@ -216,11 +215,11 @@ public class NPCTalkComponent extends ConversationComponent
 	// UTIL
 	private String recombineFirstWords(String[] words, int numberOfWords)
 	{
-		String string = "";
+		StringBuilder string = new StringBuilder();
 		for(int i = 0; i < words.length && i < numberOfWords; i++)
-			string += words[i]+" ";
+			string.append(words[i]).append(" ");
 
-		return string.trim();
+		return string.toString().trim();
 	}
 
 }
