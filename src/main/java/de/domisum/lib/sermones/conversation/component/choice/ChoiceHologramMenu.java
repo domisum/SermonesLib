@@ -18,9 +18,7 @@ class ChoiceHologramMenu extends LocationBoundHologramMenu
 	private ChoiceComponent choiceComponent;
 
 
-	// -------
-	// CONSTRUCTOR
-	// -------
+	// INIT
 	ChoiceHologramMenu(Player player, Location location, ChoiceComponent choiceComponent)
 	{
 		super(player, location);
@@ -41,20 +39,17 @@ class ChoiceHologramMenu extends LocationBoundHologramMenu
 			TextHologram thg = new TextHologram(processText(choice.getText()));
 			HologramMenuComponent hmc = new HologramMenuComponent(thg)
 			{
-				@Override
-				public void onHover()
+				@Override public void onHover()
 				{
 					((TextHologram) this.hologram).setText(ChatColor.AQUA+processText(choice.getText()));
 				}
 
-				@Override
-				public void onDehover()
+				@Override public void onDehover()
 				{
 					((TextHologram) this.hologram).setText(processText(choice.getText()));
 				}
 
-				@Override
-				public void onClick()
+				@Override public void onClick()
 				{
 					if(choice.getSuccesorId() != null)
 						ChoiceHologramMenu.this.choiceComponent.startComponent(choice.getSuccesorId());
@@ -82,9 +77,7 @@ class ChoiceHologramMenu extends LocationBoundHologramMenu
 	}
 
 
-	// -------
 	// GETTERS
-	// -------
 	double getYOffset()
 	{
 		// move upwards if number of choices > 3
@@ -92,19 +85,14 @@ class ChoiceHologramMenu extends LocationBoundHologramMenu
 	}
 
 
-	// -------
 	// SETTERS
-	// -------
-	@Override
-	public void setLocation(Location location)
+	@Override public void setLocation(Location location)
 	{
 		super.setLocation(location.clone().add(0, getYOffset(), 0));
 	}
 
 
-	// -------
 	// UTIL
-	// -------
 	private static String processText(String text)
 	{
 		text = Conversation.fillUpText(text, ChoiceComponent.LINE_FILL_LENGTH);

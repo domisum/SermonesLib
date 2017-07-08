@@ -38,25 +38,20 @@ public class ChoiceComponent extends ConversationComponent
 	private long startTime;
 
 
-	// -------
-	// CONSTRUCTOR
-	// -------
-	@DeserializationNoArgsConstructor
-	public ChoiceComponent()
+	// INIT
+	@DeserializationNoArgsConstructor public ChoiceComponent()
 	{
 		super();
 	}
 
-	@APIUsage
-	public ChoiceComponent(String id, List<Choice> choices)
+	@APIUsage public ChoiceComponent(String id, List<Choice> choices)
 	{
 		super(id);
 
 		this.choices = choices;
 	}
 
-	@Override
-	public ChoiceComponent clone()
+	@Override public ChoiceComponent clone()
 	{
 		ChoiceComponent choiceComponent = new ChoiceComponent(this.id, this.choices);
 		choiceComponent.setTimeout(this.timeoutMs, this.timeoutComponentId);
@@ -64,8 +59,7 @@ public class ChoiceComponent extends ConversationComponent
 		return choiceComponent;
 	}
 
-	@Override
-	public void initialize(Conversation conversation)
+	@Override public void initialize(Conversation conversation)
 	{
 		super.initialize(conversation);
 
@@ -73,8 +67,7 @@ public class ChoiceComponent extends ConversationComponent
 		createMenu();
 	}
 
-	@Override
-	public void terminate()
+	@Override public void terminate()
 	{
 		super.terminate();
 
@@ -92,11 +85,8 @@ public class ChoiceComponent extends ConversationComponent
 	}
 
 
-	// -------
 	// GETTERS
-	// -------
-	@Override
-	public String getId()
+	@Override public String getId()
 	{
 		return this.id;
 	}
@@ -107,11 +97,8 @@ public class ChoiceComponent extends ConversationComponent
 	}
 
 
-	// -------
 	// SETTERS
-	// -------
-	@APIUsage
-	public ChoiceComponent setTimeout(int timeoutMs, String timeoutComponentId)
+	@APIUsage public ChoiceComponent setTimeout(int timeoutMs, String timeoutComponentId)
 	{
 		this.timeoutMs = timeoutMs;
 		this.timeoutComponentId = timeoutComponentId;
@@ -120,11 +107,8 @@ public class ChoiceComponent extends ConversationComponent
 	}
 
 
-	// -------
 	// UPDATING
-	// -------
-	@Override
-	public void update()
+	@Override public void update()
 	{
 		this.menu.setLocation(this.conversation.getOffsetLocation(SIDEWARDS_OFFSET));
 
@@ -143,9 +127,7 @@ public class ChoiceComponent extends ConversationComponent
 	}
 
 
-	// -------
 	// MENU
-	// -------
 	private void createMenu()
 	{
 		this.menu = new ChoiceHologramMenu(this.conversation.getPlayer(), this.conversation.getOffsetLocation(SIDEWARDS_OFFSET),
@@ -159,9 +141,7 @@ public class ChoiceComponent extends ConversationComponent
 	}
 
 
-	// -------
 	// TIMEOUT
-	// -------
 	private long getTimeoutMsLeft()
 	{
 		return this.timeoutMs-(System.currentTimeMillis()-this.startTime);

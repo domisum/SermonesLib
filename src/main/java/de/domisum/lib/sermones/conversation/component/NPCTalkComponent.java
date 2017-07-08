@@ -24,11 +24,9 @@ public class NPCTalkComponent extends ConversationComponent
 	private static final int NUMBER_OF_LINES = 3;
 
 	// PROPERTIES
-	@SetByDeserialization
-	protected String text;
+	@SetByDeserialization protected String text;
 
-	@SetByDeserialization
-	protected String successorId;
+	@SetByDeserialization protected String successorId;
 
 	// REFERENCES
 	transient List<String> lines;
@@ -42,39 +40,32 @@ public class NPCTalkComponent extends ConversationComponent
 	private transient int hologramLineOffset = 0;
 
 
-	// -------
-	// CONSTRUCTOR
-	// -------
-	@DeserializationNoArgsConstructor
-	public NPCTalkComponent()
+	// INIT
+	@DeserializationNoArgsConstructor public NPCTalkComponent()
 	{
 		super();
 	}
 
-	@APIUsage
-	public NPCTalkComponent(String id, String text, String successorId)
+	@APIUsage public NPCTalkComponent(String id, String text, String successorId)
 	{
 		super(id);
 		this.text = text;
 		this.successorId = successorId;
 	}
 
-	@Override
-	public NPCTalkComponent clone()
+	@Override public NPCTalkComponent clone()
 	{
 		return new NPCTalkComponent(this.id, this.text, this.successorId);
 	}
 
-	@Override
-	public void initialize(Conversation conversation)
+	@Override public void initialize(Conversation conversation)
 	{
 		super.initialize(conversation);
 
 		this.lines = TextUtil.splitTextIntoLinesConsideringNewLines(this.text, MAX_LINE_LENGTH);
 	}
 
-	@Override
-	public void terminate()
+	@Override public void terminate()
 	{
 		super.terminate();
 
@@ -88,11 +79,8 @@ public class NPCTalkComponent extends ConversationComponent
 	}
 
 
-	// -------
 	// GETTERS
-	// -------
-	@Override
-	public String getId()
+	@Override public String getId()
 	{
 		return this.id;
 	}
@@ -111,11 +99,8 @@ public class NPCTalkComponent extends ConversationComponent
 	}
 
 
-	// -------
 	// UPDATING
-	// -------
-	@Override
-	public void update()
+	@Override public void update()
 	{
 		updateHologramLocations();
 		updateText();
@@ -143,9 +128,7 @@ public class NPCTalkComponent extends ConversationComponent
 	}
 
 
-	// -------
 	// TEXT
-	// -------
 	private void updateText()
 	{
 		if(this.updatesToWait > 0)
@@ -229,9 +212,7 @@ public class NPCTalkComponent extends ConversationComponent
 	}
 
 
-	// -------
 	// UTIL
-	// -------
 	private String recombineFirstWords(String[] words, int numberOfWords)
 	{
 		String string = "";

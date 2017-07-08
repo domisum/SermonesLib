@@ -20,9 +20,7 @@ public class ConversationManager
 	private Map<Player, Conversation> conversations = new PlayerKeyMap<>();
 
 
-	// -------
-	// CONSTRUCTOR
-	// -------
+	// INIT
 	public ConversationManager()
 	{
 
@@ -42,9 +40,7 @@ public class ConversationManager
 	}
 
 
-	// -------
 	// CHANGERS
-	// -------
 	public void startConversation(Conversation conversation, Player player, Location location)
 	{
 		if(this.conversations.containsKey(player))
@@ -55,9 +51,7 @@ public class ConversationManager
 	}
 
 
-	// -------
 	// UPDATING
-	// -------
 	private void startUpdateTask()
 	{
 		if(this.updateTask != null)

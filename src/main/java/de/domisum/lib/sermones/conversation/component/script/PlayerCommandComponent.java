@@ -9,34 +9,26 @@ import org.bukkit.Bukkit;
 public class PlayerCommandComponent extends ConsoleCommandComponent
 {
 
-	// -------
-	// CONSTRUCTOR
-	// -------
-	@DeserializationNoArgsConstructor
-	public PlayerCommandComponent()
+	// INIT
+	@DeserializationNoArgsConstructor public PlayerCommandComponent()
 	{
 		super();
 	}
 
-	@APIUsage
-	public PlayerCommandComponent(String command, String successorId)
+	@APIUsage public PlayerCommandComponent(String command, String successorId)
 	{
 		super(command, successorId);
 	}
 
 
-	@Override
-	public ConversationComponent clone()
+	@Override public ConversationComponent clone()
 	{
 		return new PlayerCommandComponent(this.command, this.successorId);
 	}
 
 
-	// -------
 	// COMMAND
-	// -------
-	@Override
-	void executeCommand()
+	@Override void executeCommand()
 	{
 		Bukkit.dispatchCommand(this.conversation.getPlayer(), this.command);
 	}

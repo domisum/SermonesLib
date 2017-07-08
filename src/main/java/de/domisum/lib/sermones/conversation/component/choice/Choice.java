@@ -16,26 +16,20 @@ public class Choice
 	private String succesorId;
 
 
-	// -------
-	// CONSTRUCTOR
-	// -------
-	@DeserializationNoArgsConstructor
-	public Choice()
+	// INIT
+	@DeserializationNoArgsConstructor public Choice()
 	{
 
 	}
 
-	@APIUsage
-	public Choice(String text, String succesorId)
+	@APIUsage public Choice(String text, String succesorId)
 	{
 		this.text = text;
 		this.succesorId = succesorId;
 	}
 
 
-	// -------
 	// GETTERS
-	// -------
 	String getText()
 	{
 		return this.text;
@@ -57,18 +51,14 @@ public class Choice
 	}
 
 
-	// -------
 	// SETTERS
-	// -------
-	@APIUsage
-	public Choice setSymbolLeft(ItemStack symbolLeft)
+	@APIUsage public Choice setSymbolLeft(ItemStack symbolLeft)
 	{
 		this.symbolLeft = symbolLeft;
 		return this;
 	}
 
-	@APIUsage
-	public Choice setSymbolRight(ItemStack symbolRight)
+	@APIUsage public Choice setSymbolRight(ItemStack symbolRight)
 	{
 		this.symbolRight = symbolRight;
 		return this;

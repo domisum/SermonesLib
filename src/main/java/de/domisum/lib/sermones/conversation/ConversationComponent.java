@@ -7,18 +7,14 @@ public abstract class ConversationComponent
 {
 
 	// PROPERTIES
-	@SetByDeserialization
-	protected String id;
+	@SetByDeserialization protected String id;
 
 	// REFERENCES
 	protected transient Conversation conversation;
 
 
-	// -------
-	// CONSTRUCTOR
-	// -------
-	@DeserializationNoArgsConstructor
-	public ConversationComponent()
+	// INIT
+	@DeserializationNoArgsConstructor public ConversationComponent()
 	{
 
 	}
@@ -29,8 +25,7 @@ public abstract class ConversationComponent
 	}
 
 
-	@Override
-	public abstract ConversationComponent clone();
+	@Override public abstract ConversationComponent clone();
 
 	public void initialize(Conversation conversation)
 	{
@@ -43,9 +38,7 @@ public abstract class ConversationComponent
 	}
 
 
-	// -------
 	// GETTERS
-	// -------
 	public abstract String getId();
 
 	public Conversation getConversation()
@@ -54,9 +47,7 @@ public abstract class ConversationComponent
 	}
 
 
-	// -------
 	// PROCESS
-	// -------
 	public abstract void update();
 
 	public void startComponent(String id)

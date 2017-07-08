@@ -14,29 +14,23 @@ public class PlayerTalkComponent extends NPCTalkComponent
 	// REFERENCES
 	private TextHologram playerSpeechIndicator;
 
-	// -------
-	// CONSTRUCTOR
-	// -------
-	@DeserializationNoArgsConstructor
-	public PlayerTalkComponent()
+	// INIT
+	@DeserializationNoArgsConstructor public PlayerTalkComponent()
 	{
 		super();
 	}
 
-	@APIUsage
-	public PlayerTalkComponent(String id, String text, String successorId)
+	@APIUsage public PlayerTalkComponent(String id, String text, String successorId)
 	{
 		super(id, text, successorId);
 	}
 
-	@Override
-	public PlayerTalkComponent clone()
+	@Override public PlayerTalkComponent clone()
 	{
 		return new PlayerTalkComponent(this.id, this.text, this.successorId);
 	}
 
-	@Override
-	public void terminate()
+	@Override public void terminate()
 	{
 		super.terminate();
 
@@ -48,11 +42,8 @@ public class PlayerTalkComponent extends NPCTalkComponent
 	}
 
 
-	// -------
 	// UPDATING
-	// -------
-	@Override
-	protected void updateHologramLocations()
+	@Override protected void updateHologramLocations()
 	{
 		super.updateHologramLocations();
 
@@ -64,8 +55,7 @@ public class PlayerTalkComponent extends NPCTalkComponent
 		this.playerSpeechIndicator.setLocation(new Vector3D(offsetLocation).add(new Vector3D(0, offsetY, 0)));
 	}
 
-	@Override
-	protected void addWord()
+	@Override protected void addWord()
 	{
 		if(this.currentLine >= this.lines.size() && this.playerSpeechIndicator != null)
 		{

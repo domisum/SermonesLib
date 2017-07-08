@@ -19,9 +19,7 @@ public class SermonesLib
 	private ConversationManager conversationManager;
 
 
-	// -------
-	// CONSTRUCTOR
-	// -------
+	// INIT
 	private SermonesLib(Plugin plugin)
 	{
 		instance = this;
@@ -30,8 +28,7 @@ public class SermonesLib
 		onEnable();
 	}
 
-	@APIUsage
-	public static void enable(Plugin plugin)
+	@APIUsage public static void enable(Plugin plugin)
 	{
 		if(instance != null)
 			return;
@@ -39,8 +36,7 @@ public class SermonesLib
 		new SermonesLib(plugin);
 	}
 
-	@APIUsage
-	public static void disable()
+	@APIUsage public static void disable()
 	{
 		if(instance == null)
 			return;
@@ -72,11 +68,8 @@ public class SermonesLib
 	}
 
 
-	// -------
 	// GETTERS
-	// -------
-	@APIUsage
-	public static SermonesLib getInstance()
+	@APIUsage public static SermonesLib getInstance()
 	{
 		if(instance == null)
 			throw new IllegalArgumentException(SermonesLib.class.getSimpleName()+" has to be initialized before usage");
@@ -84,14 +77,12 @@ public class SermonesLib
 		return instance;
 	}
 
-	@APIUsage
-	public static Plugin getPlugin()
+	@APIUsage public static Plugin getPlugin()
 	{
 		return getInstance().plugin;
 	}
 
-	@APIUsage
-	public Logger getLogger()
+	@APIUsage public Logger getLogger()
 	{
 		return getInstance().plugin.getLogger();
 	}

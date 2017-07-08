@@ -18,10 +18,8 @@ public class Conversation
 {
 
 	// PROPERTIES
-	@SetByDeserialization
-	private String startComponentId;
-	@SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
-	@SetByDeserialization
+	@SetByDeserialization private String startComponentId;
+	@SuppressWarnings("MismatchedQueryAndUpdateOfCollection") @SetByDeserialization
 	private List<ConversationComponent> components = new ArrayList<>();
 
 	// REFERENCES
@@ -33,11 +31,8 @@ public class Conversation
 	private transient boolean terminated = false;
 
 
-	// -------
-	// CONSTRUCTOR
-	// -------
-	@DeserializationNoArgsConstructor
-	public Conversation()
+	// INIT
+	@DeserializationNoArgsConstructor public Conversation()
 	{
 
 	}
@@ -48,8 +43,7 @@ public class Conversation
 		this.components = components;
 	}
 
-	@Override
-	public Conversation clone()
+	@Override public Conversation clone()
 	{
 		List<ConversationComponent> componentsClone = new ArrayList<>();
 		for(ConversationComponent component : this.components)
@@ -75,9 +69,7 @@ public class Conversation
 	}
 
 
-	// -------
 	// GETTERS
-	// -------
 	public Player getPlayer()
 	{
 		return this.player;
@@ -131,19 +123,14 @@ public class Conversation
 	}
 
 
-	// -------
 	// SETTERS
-	// -------
-	@APIUsage
-	public void setBaseLocation(Location baseLocation)
+	@APIUsage public void setBaseLocation(Location baseLocation)
 	{
 		this.baseLocation = baseLocation;
 	}
 
 
-	// -------
 	// UPDATING
-	// -------
 	void update()
 	{
 		if(this.activeComponent == null)
@@ -168,9 +155,7 @@ public class Conversation
 	}
 
 
-	// -------
 	// UTIL
-	// -------
 	public static String fillUpText(String text, int desiredLength)
 	{
 		double currentLength = ChatColor.stripColor(text).length();

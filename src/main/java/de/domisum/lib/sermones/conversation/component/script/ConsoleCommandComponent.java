@@ -15,31 +15,25 @@ public class ConsoleCommandComponent extends ConversationComponent
 	String successorId;
 
 
-	// -------
-	// CONSTRUCTOR
-	// -------
-	@DeserializationNoArgsConstructor
-	public ConsoleCommandComponent()
+	// INIT
+	@DeserializationNoArgsConstructor public ConsoleCommandComponent()
 	{
 		super();
 	}
 
-	@APIUsage
-	public ConsoleCommandComponent(String command, String successorId)
+	@APIUsage public ConsoleCommandComponent(String command, String successorId)
 	{
 		this.command = command;
 		this.successorId = successorId;
 	}
 
 
-	@Override
-	public ConversationComponent clone()
+	@Override public ConversationComponent clone()
 	{
 		return new ConsoleCommandComponent(this.command, this.successorId);
 	}
 
-	@Override
-	public void initialize(Conversation conversation)
+	@Override public void initialize(Conversation conversation)
 	{
 		super.initialize(conversation);
 
@@ -48,29 +42,21 @@ public class ConsoleCommandComponent extends ConversationComponent
 	}
 
 
-	// -------
 	// GETTERS
-	// -------
-	@Override
-	public String getId()
+	@Override public String getId()
 	{
 		return null;
 	}
 
 
-	// -------
 	// UPDATING
-	// -------
-	@Override
-	public void update()
+	@Override public void update()
 	{
 
 	}
 
 
-	// -------
 	// COMMAND
-	// -------
 	void executeCommand()
 	{
 		Bukkit.dispatchCommand(Bukkit.getServer().getConsoleSender(), this.command);
