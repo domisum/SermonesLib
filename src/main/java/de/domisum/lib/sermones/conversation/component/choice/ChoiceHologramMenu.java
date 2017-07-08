@@ -19,7 +19,7 @@ class ChoiceHologramMenu extends LocationBoundHologramMenu
 
 
 	// INIT
-	ChoiceHologramMenu(Player player, Location location, ChoiceComponent choiceComponent)
+	protected ChoiceHologramMenu(Player player, Location location, ChoiceComponent choiceComponent)
 	{
 		super(player, location);
 		this.choiceComponent = choiceComponent;
@@ -78,7 +78,7 @@ class ChoiceHologramMenu extends LocationBoundHologramMenu
 
 
 	// GETTERS
-	double getYOffset()
+	protected double getYOffset()
 	{
 		// move upwards if number of choices > 3
 		return Math.max(0, this.choiceComponent.choices.size()-3)*ChoiceComponent.LINE_DISTANCE;
