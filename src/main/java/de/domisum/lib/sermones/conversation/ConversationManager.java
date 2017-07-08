@@ -22,11 +22,6 @@ public class ConversationManager
 
 
 	// INIT
-	public ConversationManager()
-	{
-
-	}
-
 	public void initialize()
 	{
 		startUpdateTask();
