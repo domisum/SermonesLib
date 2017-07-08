@@ -2,6 +2,7 @@ package de.domisum.lib.sermones.conversation.component.choice;
 
 import de.domisum.lib.auxilium.util.java.annotations.APIUsage;
 import de.domisum.lib.auxilium.util.java.annotations.DeserializationNoArgsConstructor;
+import lombok.Getter;
 import org.bukkit.inventory.ItemStack;
 
 @APIUsage
@@ -9,11 +10,11 @@ public class Choice
 {
 
 	// PROPERTIES
-	private String text;
-	private ItemStack symbolLeft;
-	private ItemStack symbolRight;
+	@Getter private String text;
+	@Getter private ItemStack symbolLeft;
+	@Getter private ItemStack symbolRight;
 
-	private String succesorId;
+	@Getter private String succesorId;
 
 
 	// INIT
@@ -26,28 +27,6 @@ public class Choice
 	{
 		this.text = text;
 		this.succesorId = succesorId;
-	}
-
-
-	// GETTERS
-	String getText()
-	{
-		return this.text;
-	}
-
-	String getSuccesorId()
-	{
-		return this.succesorId;
-	}
-
-	ItemStack getSymbolLeft()
-	{
-		return this.symbolLeft;
-	}
-
-	ItemStack getSymbolRight()
-	{
-		return this.symbolRight;
 	}
 
 
