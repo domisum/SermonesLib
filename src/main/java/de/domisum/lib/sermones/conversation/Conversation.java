@@ -160,9 +160,9 @@ public class Conversation
 	public static String fillUpText(String text, int desiredLength)
 	{
 		double currentLength = ChatColor.stripColor(text).length();
-		text += TextUtil.repeat(" ", (int) Math.round((desiredLength-currentLength)*1.15));
+		String filledUp = text+TextUtil.repeat(" ", (int) Math.round((desiredLength-currentLength)*1.15));
 
-		return text;
+		return filledUp;
 	}
 
 }
