@@ -38,13 +38,13 @@ public class Conversation
 
 	}
 
-	public Conversation(String startComponentId, List<ConversationComponent> components)
+	private Conversation(String startComponentId, List<ConversationComponent> components)
 	{
 		this.startComponentId = startComponentId;
 		this.components = components;
 	}
 
-	@Override public Conversation clone()
+	public Conversation copy()
 	{
 		List<ConversationComponent> componentsClone = new ArrayList<>();
 		for(ConversationComponent component : this.components)
@@ -53,7 +53,7 @@ public class Conversation
 		return new Conversation(this.startComponentId, componentsClone);
 	}
 
-	void initialize(Player player, Location baseLocation)
+	protected void initialize(Player player, Location baseLocation)
 	{
 		this.player = player;
 		this.baseLocation = baseLocation;
@@ -108,7 +108,7 @@ public class Conversation
 	}
 
 
-	boolean isTerminated()
+	protected boolean isTerminated()
 	{
 		return this.terminated;
 	}
@@ -132,7 +132,7 @@ public class Conversation
 
 
 	// UPDATING
-	void update()
+	protected void update()
 	{
 		if(this.activeComponent == null)
 		{
@@ -143,7 +143,7 @@ public class Conversation
 		this.activeComponent.update();
 	}
 
-	void initializeComponent(String id)
+	protected void initializeComponent(String id)
 	{
 		if(this.activeComponent != null)
 			this.activeComponent.terminate();
