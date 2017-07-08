@@ -1,6 +1,6 @@
 package de.domisum.lib.sermones.conversation;
 
-import de.domisum.lib.auxilium.data.structure.pds.PlayerKeyMap;
+import de.domisum.lib.auxiliumspigot.data.structure.pds.PlayerKeyMap;
 import de.domisum.lib.sermones.SermonesLib;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

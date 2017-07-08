@@ -1,10 +1,11 @@
 package de.domisum.lib.sermones.conversation.component;
 
 import de.domisum.lib.auxilium.data.container.math.Vector3D;
-import de.domisum.lib.auxilium.util.TextUtil;
 import de.domisum.lib.auxilium.util.java.annotations.APIUsage;
 import de.domisum.lib.auxilium.util.java.annotations.DeserializationNoArgsConstructor;
 import de.domisum.lib.auxilium.util.java.annotations.SetByDeserialization;
+import de.domisum.lib.auxiliumspigot.data.container.VectorConverter;
+import de.domisum.lib.auxiliumspigot.util.SpigotTextUtil;
 import de.domisum.lib.hologram.hologram.Hologram;
 import de.domisum.lib.hologram.hologram.TextHologram;
 import de.domisum.lib.sermones.conversation.Conversation;
@@ -62,7 +63,7 @@ public class NPCTalkComponent extends ConversationComponent
 	{
 		super.initialize(conversation);
 
-		this.lines = TextUtil.splitTextIntoLinesConsideringNewLines(this.text, MAX_LINE_LENGTH);
+		this.lines = SpigotTextUtil.splitTextIntoLinesConsideringNewLines(this.text, MAX_LINE_LENGTH);
 	}
 
 	@Override public void terminate()
@@ -113,7 +114,7 @@ public class NPCTalkComponent extends ConversationComponent
 		double yOffset = this.holograms.size()*LINE_DISTANCE/2d;
 		for(TextHologram h : this.holograms)
 		{
-			h.setLocation(new Vector3D(offsetLocation).add(new Vector3D(0, yOffset, 0)));
+			h.setLocation(VectorConverter.toVector3D(offsetLocation).add(new Vector3D(0, yOffset, 0)));
 
 			yOffset -= LINE_DISTANCE;
 		}

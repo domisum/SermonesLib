@@ -1,6 +1,5 @@
 package de.domisum.lib.sermones;
 
-import de.domisum.lib.auxilium.AuxiliumLib;
 import de.domisum.lib.auxilium.util.java.annotations.APIUsage;
 import de.domisum.lib.hologrammenu.HologramMenuLib;
 import de.domisum.lib.sermones.conversation.ConversationManager;
@@ -48,7 +47,6 @@ public class SermonesLib
 
 	private void onEnable()
 	{
-		AuxiliumLib.enable(this.plugin);
 		HologramMenuLib.enable(this.plugin);
 
 		this.conversationManager = new ConversationManager();
@@ -62,7 +60,6 @@ public class SermonesLib
 		this.conversationManager.terminate();
 
 		HologramMenuLib.disable();
-		AuxiliumLib.disable();
 
 		getLogger().info(this.getClass().getSimpleName()+" has been disabled");
 	}

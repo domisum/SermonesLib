@@ -3,6 +3,7 @@ package de.domisum.lib.sermones.conversation.component;
 import de.domisum.lib.auxilium.data.container.math.Vector3D;
 import de.domisum.lib.auxilium.util.java.annotations.APIUsage;
 import de.domisum.lib.auxilium.util.java.annotations.DeserializationNoArgsConstructor;
+import de.domisum.lib.auxiliumspigot.data.container.VectorConverter;
 import de.domisum.lib.hologram.hologram.TextHologram;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -52,7 +53,7 @@ public class PlayerTalkComponent extends NPCTalkComponent
 
 		Location offsetLocation = this.conversation.getOffsetLocation(SIDEWARDS_OFFSET);
 		double offsetY = (this.holograms.size()/2d+1)*LINE_DISTANCE;
-		this.playerSpeechIndicator.setLocation(new Vector3D(offsetLocation).add(new Vector3D(0, offsetY, 0)));
+		this.playerSpeechIndicator.setLocation(VectorConverter.toVector3D(offsetLocation).add(new Vector3D(0, offsetY, 0)));
 	}
 
 	@Override protected void addWord()

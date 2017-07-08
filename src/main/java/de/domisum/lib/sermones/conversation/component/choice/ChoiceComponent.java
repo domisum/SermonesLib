@@ -1,9 +1,9 @@
 package de.domisum.lib.sermones.conversation.component.choice;
 
-import de.domisum.lib.auxilium.data.container.math.Vector3D;
 import de.domisum.lib.auxilium.util.java.annotations.APIUsage;
 import de.domisum.lib.auxilium.util.java.annotations.DeserializationNoArgsConstructor;
 import de.domisum.lib.auxilium.util.math.MathUtil;
+import de.domisum.lib.auxiliumspigot.data.container.VectorConverter;
 import de.domisum.lib.hologram.hologram.TextHologram;
 import de.domisum.lib.sermones.conversation.Conversation;
 import de.domisum.lib.sermones.conversation.ConversationComponent;
@@ -122,7 +122,7 @@ public class ChoiceComponent extends ConversationComponent
 		if(this.timeoutDisplay != null)
 		{
 			this.timeoutDisplay.setText(getTimeoutString());
-			this.timeoutDisplay.setLocation(new Vector3D(getTimeoutDisplayLocation()));
+			this.timeoutDisplay.setLocation(VectorConverter.toVector3D(getTimeoutDisplayLocation()));
 		}
 	}
 

@@ -2,11 +2,12 @@ package de.domisum.lib.sermones.conversation;
 
 import de.domisum.lib.auxilium.data.container.math.Vector3D;
 import de.domisum.lib.auxilium.util.TextUtil;
-import de.domisum.lib.auxilium.util.bukkit.LocationUtil;
 import de.domisum.lib.auxilium.util.java.annotations.APIUsage;
 import de.domisum.lib.auxilium.util.java.annotations.DeserializationNoArgsConstructor;
 import de.domisum.lib.auxilium.util.java.annotations.SetByDeserialization;
 import de.domisum.lib.auxilium.util.math.VectorUtil;
+import de.domisum.lib.auxiliumspigot.data.container.VectorConverter;
+import de.domisum.lib.auxiliumspigot.util.LocationUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -83,8 +84,8 @@ public class Conversation
 	public Location getOffsetLocation(double offsetDistance)
 	{
 		Location centerLocation = getBaseLocation();
-		Vector3D centerLocationVector = new Vector3D(centerLocation);
-		Vector3D playerLocationVector = new Vector3D(this.player.getLocation());
+		Vector3D centerLocationVector = VectorConverter.toVector3D(centerLocation);
+		Vector3D playerLocationVector = VectorConverter.toVector3D(this.player.getLocation());
 
 		Location lookLocation = LocationUtil.lookAt(this.player.getLocation(), centerLocation);
 		float lookYaw = lookLocation.getYaw();
@@ -103,7 +104,7 @@ public class Conversation
 		Vector3D rotatedOffset = VectorUtil.rotateOnXZPlane(offset, rotationYaw);
 		Vector3D orthogonalPosition = centerLocationVector.add(rotatedOffset);
 
-		return orthogonalPosition.toLocation(centerLocation.getWorld());
+		return VectorConverter.toLocation(orthogonalPosition, centerLocation.getWorld());
 	}
 
 
