@@ -28,7 +28,7 @@ public class PlayerCommandComponent extends ConsoleCommandComponent
 
 
 	// COMMAND
-	@Override void executeCommand()
+	@Override protected void executeCommand()
 	{
 		Bukkit.dispatchCommand(this.conversation.getPlayer(), this.command);
 	}
