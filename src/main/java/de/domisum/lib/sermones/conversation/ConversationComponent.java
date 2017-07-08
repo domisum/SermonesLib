@@ -34,7 +34,7 @@ public abstract class ConversationComponent
 
 	public void terminate()
 	{
-
+		// nothing to terminate
 	}
 
 
