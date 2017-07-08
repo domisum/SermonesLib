@@ -20,13 +20,13 @@ public class ChoiceComponent extends ConversationComponent
 	// CONSTANTS
 	private static final double SIDEWARDS_OFFSET = 2.5;
 
-	static final double LINE_DISTANCE = 0.35;
-	static final double SYMBOL_OFFSET = 0.3;
+	protected static final double LINE_DISTANCE = 0.35;
+	protected static final double SYMBOL_OFFSET = 0.3;
 
-	static final int LINE_FILL_LENGTH = 15;
+	protected static final int LINE_FILL_LENGTH = 15;
 
 	// PROPERTIES
-	List<Choice> choices = new ArrayList<>();
+	protected List<Choice> choices = new ArrayList<>();
 
 	private int timeoutMs;
 	private String timeoutComponentId;
@@ -91,7 +91,7 @@ public class ChoiceComponent extends ConversationComponent
 		return this.id;
 	}
 
-	public boolean hasTimeout()
+	@APIUsage public boolean hasTimeout()
 	{
 		return this.timeoutMs != 0;
 	}
