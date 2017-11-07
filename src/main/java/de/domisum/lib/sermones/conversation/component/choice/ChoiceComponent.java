@@ -1,6 +1,6 @@
 package de.domisum.lib.sermones.conversation.component.choice;
 
-import de.domisum.lib.auxilium.util.java.annotations.APIUsage;
+import de.domisum.lib.auxilium.util.java.annotations.API;
 import de.domisum.lib.auxilium.util.java.annotations.DeserializationNoArgsConstructor;
 import de.domisum.lib.auxilium.util.math.MathUtil;
 import de.domisum.lib.auxiliumspigot.data.container.VectorConverter;
@@ -13,7 +13,7 @@ import org.bukkit.Location;
 import java.util.ArrayList;
 import java.util.List;
 
-@APIUsage
+@API
 public class ChoiceComponent extends ConversationComponent
 {
 
@@ -44,7 +44,7 @@ public class ChoiceComponent extends ConversationComponent
 		super();
 	}
 
-	@APIUsage public ChoiceComponent(String id, List<Choice> choices)
+	@API public ChoiceComponent(String id, List<Choice> choices)
 	{
 		super(id);
 
@@ -91,14 +91,14 @@ public class ChoiceComponent extends ConversationComponent
 		return this.id;
 	}
 
-	@APIUsage public boolean hasTimeout()
+	@API public boolean hasTimeout()
 	{
 		return this.timeoutMs != 0;
 	}
 
 
 	// SETTERS
-	@APIUsage public ChoiceComponent setTimeout(int timeoutMs, String timeoutComponentId)
+	@API public ChoiceComponent setTimeout(int timeoutMs, String timeoutComponentId)
 	{
 		this.timeoutMs = timeoutMs;
 		this.timeoutComponentId = timeoutComponentId;

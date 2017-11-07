@@ -1,7 +1,7 @@
 package de.domisum.lib.sermones.conversation.component;
 
 import de.domisum.lib.auxilium.data.container.math.Vector3D;
-import de.domisum.lib.auxilium.util.java.annotations.APIUsage;
+import de.domisum.lib.auxilium.util.java.annotations.API;
 import de.domisum.lib.auxilium.util.java.annotations.DeserializationNoArgsConstructor;
 import de.domisum.lib.auxilium.util.java.annotations.SetByDeserialization;
 import de.domisum.lib.auxiliumspigot.data.container.VectorConverter;
@@ -46,7 +46,7 @@ public class NPCTalkComponent extends ConversationComponent
 		super();
 	}
 
-	@APIUsage public NPCTalkComponent(String id, String text, String successorId)
+	@API public NPCTalkComponent(String id, String text, String successorId)
 	{
 		super(id);
 		this.text = text;

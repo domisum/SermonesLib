@@ -1,14 +1,14 @@
 package de.domisum.lib.sermones.conversation.component;
 
 import de.domisum.lib.auxilium.data.container.math.Vector3D;
-import de.domisum.lib.auxilium.util.java.annotations.APIUsage;
+import de.domisum.lib.auxilium.util.java.annotations.API;
 import de.domisum.lib.auxilium.util.java.annotations.DeserializationNoArgsConstructor;
 import de.domisum.lib.auxiliumspigot.data.container.VectorConverter;
 import de.domisum.lib.hologram.hologram.TextHologram;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 
-@APIUsage
+@API
 public class PlayerTalkComponent extends NPCTalkComponent
 {
 
@@ -21,7 +21,7 @@ public class PlayerTalkComponent extends NPCTalkComponent
 		super();
 	}
 
-	@APIUsage public PlayerTalkComponent(String id, String text, String successorId)
+	@API public PlayerTalkComponent(String id, String text, String successorId)
 	{
 		super(id, text, successorId);
 	}

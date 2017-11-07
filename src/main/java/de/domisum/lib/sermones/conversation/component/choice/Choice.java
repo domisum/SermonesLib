@@ -1,11 +1,11 @@
 package de.domisum.lib.sermones.conversation.component.choice;
 
-import de.domisum.lib.auxilium.util.java.annotations.APIUsage;
+import de.domisum.lib.auxilium.util.java.annotations.API;
 import de.domisum.lib.auxilium.util.java.annotations.DeserializationNoArgsConstructor;
 import lombok.Getter;
 import org.bukkit.inventory.ItemStack;
 
-@APIUsage
+@API
 public class Choice
 {
 
@@ -23,7 +23,7 @@ public class Choice
 
 	}
 
-	@APIUsage public Choice(String text, String succesorId)
+	@API public Choice(String text, String succesorId)
 	{
 		this.text = text;
 		this.succesorId = succesorId;
@@ -31,13 +31,13 @@ public class Choice
 
 
 	// SETTERS
-	@APIUsage public Choice setSymbolLeft(ItemStack symbolLeft)
+	@API public Choice setSymbolLeft(ItemStack symbolLeft)
 	{
 		this.symbolLeft = symbolLeft;
 		return this;
 	}
 
-	@APIUsage public Choice setSymbolRight(ItemStack symbolRight)
+	@API public Choice setSymbolRight(ItemStack symbolRight)
 	{
 		this.symbolRight = symbolRight;
 		return this;

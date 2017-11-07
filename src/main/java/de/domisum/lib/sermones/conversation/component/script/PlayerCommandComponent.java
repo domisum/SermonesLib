@@ -1,11 +1,11 @@
 package de.domisum.lib.sermones.conversation.component.script;
 
-import de.domisum.lib.auxilium.util.java.annotations.APIUsage;
+import de.domisum.lib.auxilium.util.java.annotations.API;
 import de.domisum.lib.auxilium.util.java.annotations.DeserializationNoArgsConstructor;
 import de.domisum.lib.sermones.conversation.ConversationComponent;
 import org.bukkit.Bukkit;
 
-@APIUsage
+@API
 public class PlayerCommandComponent extends ConsoleCommandComponent
 {
 
@@ -15,7 +15,7 @@ public class PlayerCommandComponent extends ConsoleCommandComponent
 		super();
 	}
 
-	@APIUsage public PlayerCommandComponent(String command, String successorId)
+	@API public PlayerCommandComponent(String command, String successorId)
 	{
 		super(command, successorId);
 	}

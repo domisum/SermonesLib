@@ -2,7 +2,7 @@ package de.domisum.lib.sermones.conversation;
 
 import de.domisum.lib.auxilium.data.container.math.Vector3D;
 import de.domisum.lib.auxilium.util.TextUtil;
-import de.domisum.lib.auxilium.util.java.annotations.APIUsage;
+import de.domisum.lib.auxilium.util.java.annotations.API;
 import de.domisum.lib.auxilium.util.java.annotations.DeserializationNoArgsConstructor;
 import de.domisum.lib.auxilium.util.java.annotations.SetByDeserialization;
 import de.domisum.lib.auxilium.util.math.VectorUtil;
@@ -44,7 +44,7 @@ public class Conversation
 		this.components = components;
 	}
 
-	@APIUsage public Conversation copy()
+	@API public Conversation copy()
 	{
 		List<ConversationComponent> componentsClone = new ArrayList<>();
 		for(ConversationComponent component : this.components)
@@ -125,7 +125,7 @@ public class Conversation
 
 
 	// SETTERS
-	@APIUsage public void setBaseLocation(Location baseLocation)
+	@API public void setBaseLocation(Location baseLocation)
 	{
 		this.baseLocation = baseLocation;
 	}
