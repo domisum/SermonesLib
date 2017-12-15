@@ -1,7 +1,7 @@
 package de.domisum.lib.sermones.conversation;
 
 import de.domisum.lib.auxilium.data.container.math.Vector3D;
-import de.domisum.lib.auxilium.util.TextUtil;
+import de.domisum.lib.auxilium.util.StringUtil;
 import de.domisum.lib.auxilium.util.java.annotations.API;
 import de.domisum.lib.auxilium.util.java.annotations.DeserializationNoArgsConstructor;
 import de.domisum.lib.auxilium.util.java.annotations.SetByDeserialization;
@@ -160,7 +160,7 @@ public class Conversation
 	public static String fillUpText(String text, int desiredLength)
 	{
 		double currentLength = ChatColor.stripColor(text).length();
-		String filledUp = text+TextUtil.repeat(" ", (int) Math.round((desiredLength-currentLength)*1.15));
+		String filledUp = text+StringUtil.repeat(" ", (int) Math.round((desiredLength-currentLength)*1.15));
 
 		return filledUp;
 	}
