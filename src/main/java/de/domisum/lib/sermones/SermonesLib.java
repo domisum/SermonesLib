@@ -13,7 +13,7 @@ public class SermonesLib
 
 	// REFERENCES
 	private static SermonesLib instance;
-	private Plugin plugin;
+	private final Plugin plugin;
 
 	private ConversationManager conversationManager;
 
@@ -22,19 +22,20 @@ public class SermonesLib
 	private SermonesLib(Plugin plugin)
 	{
 		this.plugin = plugin;
-
-		onEnable();
 	}
 
-	@API public static void enable(Plugin plugin)
+	@API
+	public static void enable(Plugin plugin)
 	{
 		if(instance != null)
 			return;
 
 		instance = new SermonesLib(plugin);
+		instance.onEnable();
 	}
 
-	@API public static void disable()
+	@API
+	public static void disable()
 	{
 		if(instance == null)
 			return;
@@ -46,26 +47,27 @@ public class SermonesLib
 
 	private void onEnable()
 	{
-		HologramMenuLib.enable(this.plugin);
+		HologramMenuLib.enable(plugin);
 
-		this.conversationManager = new ConversationManager();
-		this.conversationManager.initialize();
+		conversationManager = new ConversationManager();
+		conversationManager.initialize();
 
-		getLogger().info(this.getClass().getSimpleName()+" has been enabled");
+		getLogger().info(getClass().getSimpleName()+" has been enabled");
 	}
 
 	private void onDisable()
 	{
-		this.conversationManager.terminate();
+		conversationManager.terminate();
 
 		HologramMenuLib.disable();
 
-		getLogger().info(this.getClass().getSimpleName()+" has been disabled");
+		getLogger().info(getClass().getSimpleName()+" has been disabled");
 	}
 
 
 	// GETTERS
-	@API public static SermonesLib getInstance()
+	@API
+	public static SermonesLib getInstance()
 	{
 		if(instance == null)
 			throw new IllegalArgumentException(SermonesLib.class.getSimpleName()+" has to be initialized before usage");
@@ -73,12 +75,14 @@ public class SermonesLib
 		return instance;
 	}
 
-	@API public static Plugin getPlugin()
+	@API
+	public static Plugin getPlugin()
 	{
 		return getInstance().plugin;
 	}
 
-	@API public Logger getLogger()
+	@API
+	public Logger getLogger()
 	{
 		return getInstance().plugin.getLogger();
 	}

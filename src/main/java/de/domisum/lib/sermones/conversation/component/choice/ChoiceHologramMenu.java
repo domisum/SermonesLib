@@ -15,7 +15,7 @@ class ChoiceHologramMenu extends LocationBoundHologramMenu
 {
 
 	// REFERENCES
-	private ChoiceComponent choiceComponent;
+	private final ChoiceComponent choiceComponent;
 
 
 	// INIT
@@ -32,32 +32,35 @@ class ChoiceHologramMenu extends LocationBoundHologramMenu
 
 	private void addComponents()
 	{
-		double dY = ChoiceComponent.LINE_DISTANCE*this.choiceComponent.choices.size()/2d;
+		double dY = (ChoiceComponent.LINE_DISTANCE*choiceComponent.choices.size())/2d;
 
-		for(Choice choice : this.choiceComponent.choices)
+		for(Choice choice : choiceComponent.choices)
 		{
 			TextHologram thg = new TextHologram(processText(choice.getText()));
-			HologramMenuComponent hmc = new HologramMenuComponent(thg)
+			HologramMenuComponent hmc = new HologramMenuComponent<TextHologram>(thg)
 			{
-				@Override public void onHover()
+				@Override
+				public void onHover()
 				{
-					((TextHologram) this.hologram).setText(ChatColor.AQUA+processText(choice.getText()));
+					hologram.setText(ChatColor.AQUA+processText(choice.getText()));
 				}
 
-				@Override public void onDehover()
+				@Override
+				public void onDehover()
 				{
-					((TextHologram) this.hologram).setText(processText(choice.getText()));
+					hologram.setText(processText(choice.getText()));
 				}
 
-				@Override public void onClick()
+				@Override
+				public void onClick()
 				{
 					if(choice.getSuccesorId() != null)
-						ChoiceHologramMenu.this.choiceComponent.startComponent(choice.getSuccesorId());
+						choiceComponent.startComponent(choice.getSuccesorId());
 					else
-						ChoiceHologramMenu.this.choiceComponent.getConversation().terminate();
+						choiceComponent.getConversation().terminate();
 				}
 			};
-			this.components.put(hmc, new Vector3D(0, dY, 0));
+			components.put(hmc, new Vector3D(0, dY, 0));
 
 			addSymbol(thg, dY, -1, choice.getSymbolLeft());
 			addSymbol(thg, dY, 1, choice.getSymbolRight());
@@ -73,7 +76,7 @@ class ChoiceHologramMenu extends LocationBoundHologramMenu
 
 		ItemHologram ihg = new ItemHologram(symbol);
 		HologramMenuComponent hmc = new HologramMenuComponent(ihg);
-		this.components.put(hmc, new Vector3D((textHologram.getWidth()/2+ChoiceComponent.SYMBOL_OFFSET)*direction, dY, 0));
+		components.put(hmc, new Vector3D((textHologram.getWidth()/2+ChoiceComponent.SYMBOL_OFFSET)*direction, dY, 0));
 	}
 
 
@@ -81,12 +84,13 @@ class ChoiceHologramMenu extends LocationBoundHologramMenu
 	protected double getYOffset()
 	{
 		// move upwards if number of choices > 3
-		return Math.max(0, this.choiceComponent.choices.size()-3)*ChoiceComponent.LINE_DISTANCE;
+		return Math.max(0, choiceComponent.choices.size()-3)*ChoiceComponent.LINE_DISTANCE;
 	}
 
 
 	// SETTERS
-	@Override public void setLocation(Location location)
+	@Override
+	public void setLocation(Location location)
 	{
 		super.setLocation(location.clone().add(0, getYOffset(), 0));
 	}

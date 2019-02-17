@@ -16,65 +16,71 @@ public class PlayerTalkComponent extends NPCTalkComponent
 	private TextHologram playerSpeechIndicator;
 
 	// INIT
-	@DeserializationNoArgsConstructor public PlayerTalkComponent()
+	@DeserializationNoArgsConstructor
+	public PlayerTalkComponent()
 	{
-		super();
 	}
 
-	@API public PlayerTalkComponent(String id, String text, String successorId)
+	@API
+	public PlayerTalkComponent(String id, String text, String successorId)
 	{
 		super(id, text, successorId);
 	}
 
-	@Override public PlayerTalkComponent clone()
+	@Override
+	public PlayerTalkComponent clone()
 	{
-		return new PlayerTalkComponent(this.id, this.text, this.successorId);
+		return new PlayerTalkComponent(id, text, successorId);
 	}
 
-	@Override public void terminate()
+	@Override
+	public void terminate()
 	{
 		super.terminate();
 
-		if(this.playerSpeechIndicator != null)
+		if(playerSpeechIndicator != null)
 		{
-			this.playerSpeechIndicator.hideFrom(this.conversation.getPlayer());
-			this.playerSpeechIndicator = null;
+			playerSpeechIndicator.hideFrom(conversation.getPlayer());
+			playerSpeechIndicator = null;
 		}
 	}
 
 
 	// UPDATING
-	@Override protected void updateHologramLocations()
+	@Override
+	protected void updateHologramLocations()
 	{
 		super.updateHologramLocations();
 
-		if(this.playerSpeechIndicator == null)
+		if(playerSpeechIndicator == null)
 			return;
 
-		Location offsetLocation = this.conversation.getOffsetLocation(SIDEWARDS_OFFSET);
-		double offsetY = (this.holograms.size()/2d+1)*LINE_DISTANCE;
-		this.playerSpeechIndicator.setLocation(VectorConverter.toVector3D(offsetLocation).add(new Vector3D(0, offsetY, 0)));
+		Location offsetLocation = conversation.getOffsetLocation(SIDEWARDS_OFFSET);
+		double offsetY = (holograms.size()/2d+1)*LINE_DISTANCE;
+		playerSpeechIndicator.setLocation(VectorConverter.toVector3D(offsetLocation).add(new Vector3D(0, offsetY, 0)));
 	}
 
-	@Override protected void addWord()
+	@Override
+	protected void addWord()
 	{
-		if(this.currentLine >= this.lines.size() && this.playerSpeechIndicator != null)
+		if(currentLine >= lines.size() && playerSpeechIndicator != null)
 		{
-			this.playerSpeechIndicator.hideFrom(this.conversation.getPlayer());
-			this.playerSpeechIndicator = null;
+			playerSpeechIndicator.hideFrom(conversation.getPlayer());
+			playerSpeechIndicator = null;
 
-			this.updatesToWait += 5;
+			updatesToWait += 5;
 			return;
 		}
 
-		if(this.currentLine == 0 && this.playerSpeechIndicator == null)
+		if(currentLine == 0 && playerSpeechIndicator == null)
 		{
-			this.playerSpeechIndicator = new TextHologram(this.conversation.getBaseLocation().getWorld(),
-					ChatColor.GOLD.toString()+ChatColor.BOLD+"You:");
+			playerSpeechIndicator = new TextHologram(conversation.getBaseLocation().getWorld(),
+					ChatColor.GOLD.toString()+ChatColor.BOLD+"You:"
+			);
 			updateHologramLocations();
-			this.playerSpeechIndicator.showTo(this.conversation.getPlayer());
+			playerSpeechIndicator.showTo(conversation.getPlayer());
 
-			this.updatesToWait += 10;
+			updatesToWait += 10;
 			return;
 		}
 

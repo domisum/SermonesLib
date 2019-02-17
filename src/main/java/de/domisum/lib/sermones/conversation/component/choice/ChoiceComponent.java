@@ -39,66 +39,74 @@ public class ChoiceComponent extends ConversationComponent
 
 
 	// INIT
-	@DeserializationNoArgsConstructor public ChoiceComponent()
+	@DeserializationNoArgsConstructor
+	public ChoiceComponent()
 	{
-		super();
+
 	}
 
-	@API public ChoiceComponent(String id, List<Choice> choices)
+	@API
+	public ChoiceComponent(String id, List<Choice> choices)
 	{
 		super(id);
 
 		this.choices = choices;
 	}
 
-	@Override public ChoiceComponent clone()
+	@Override
+	public ChoiceComponent clone()
 	{
-		ChoiceComponent choiceComponent = new ChoiceComponent(this.id, this.choices);
-		choiceComponent.setTimeout(this.timeoutMs, this.timeoutComponentId);
+		ChoiceComponent choiceComponent = new ChoiceComponent(id, choices);
+		choiceComponent.setTimeout(timeoutMs, timeoutComponentId);
 
 		return choiceComponent;
 	}
 
-	@Override public void initialize(Conversation conversation)
+	@Override
+	public void initialize(Conversation conversation)
 	{
 		super.initialize(conversation);
 
-		this.startTime = System.currentTimeMillis();
+		startTime = System.currentTimeMillis();
 		createMenu();
 	}
 
-	@Override public void terminate()
+	@Override
+	public void terminate()
 	{
 		super.terminate();
 
-		if(this.menu != null)
-			this.menu.terminate();
+		if(menu != null)
+			menu.terminate();
 
-		if(this.timeoutDisplay != null)
+		if(timeoutDisplay != null)
 		{
-			this.timeoutDisplay.hideFrom(this.conversation.getPlayer());
-			this.timeoutDisplay = null;
+			timeoutDisplay.hideFrom(conversation.getPlayer());
+			timeoutDisplay = null;
 		}
 
 		// reset
-		this.startTime = 0;
+		startTime = 0;
 	}
 
 
 	// GETTERS
-	@Override public String getId()
+	@Override
+	public String getId()
 	{
-		return this.id;
+		return id;
 	}
 
-	@API public boolean hasTimeout()
+	@API
+	public boolean hasTimeout()
 	{
-		return this.timeoutMs != 0;
+		return timeoutMs != 0;
 	}
 
 
 	// SETTERS
-	@API public ChoiceComponent setTimeout(int timeoutMs, String timeoutComponentId)
+	@API
+	public ChoiceComponent setTimeout(int timeoutMs, String timeoutComponentId)
 	{
 		this.timeoutMs = timeoutMs;
 		this.timeoutComponentId = timeoutComponentId;
@@ -108,20 +116,21 @@ public class ChoiceComponent extends ConversationComponent
 
 
 	// UPDATING
-	@Override public void update()
+	@Override
+	public void update()
 	{
-		this.menu.setLocation(this.conversation.getOffsetLocation(SIDEWARDS_OFFSET));
+		menu.setLocation(conversation.getOffsetLocation(SIDEWARDS_OFFSET));
 
 		if(hasTimeout() && getTimeoutMsLeft() <= 0)
 		{
-			startComponent(this.timeoutComponentId);
+			startComponent(timeoutComponentId);
 			return;
 		}
 
-		if(this.timeoutDisplay != null)
+		if(timeoutDisplay != null)
 		{
-			this.timeoutDisplay.setText(getTimeoutString());
-			this.timeoutDisplay.setLocation(VectorConverter.toVector3D(getTimeoutDisplayLocation()));
+			timeoutDisplay.setText(getTimeoutString());
+			timeoutDisplay.setLocation(VectorConverter.toVector3D(getTimeoutDisplayLocation()));
 		}
 	}
 
@@ -129,13 +138,12 @@ public class ChoiceComponent extends ConversationComponent
 	// MENU
 	private void createMenu()
 	{
-		this.menu = new ChoiceHologramMenu(this.conversation.getPlayer(), this.conversation.getOffsetLocation(SIDEWARDS_OFFSET),
-				this);
+		menu = new ChoiceHologramMenu(conversation.getPlayer(), conversation.getOffsetLocation(SIDEWARDS_OFFSET), this);
 
 		if(hasTimeout())
 		{
-			this.timeoutDisplay = new TextHologram(getTimeoutDisplayLocation(), getTimeoutString());
-			this.timeoutDisplay.showTo(this.conversation.getPlayer());
+			timeoutDisplay = new TextHologram(getTimeoutDisplayLocation(), getTimeoutString());
+			timeoutDisplay.showTo(conversation.getPlayer());
 		}
 	}
 
@@ -143,13 +151,13 @@ public class ChoiceComponent extends ConversationComponent
 	// TIMEOUT
 	private long getTimeoutMsLeft()
 	{
-		return this.timeoutMs-(System.currentTimeMillis()-this.startTime);
+		return timeoutMs-(System.currentTimeMillis()-startTime);
 	}
 
 	private Location getTimeoutDisplayLocation()
 	{
-		Location location = this.conversation.getOffsetLocation(SIDEWARDS_OFFSET);
-		location.add(0, this.menu.getYOffset()+((this.choices.size()/2d)+1)*LINE_DISTANCE, 0);
+		Location location = conversation.getOffsetLocation(SIDEWARDS_OFFSET);
+		location.add(0, menu.getYOffset()+((choices.size()/2d)+1)*LINE_DISTANCE, 0);
 
 		return location;
 	}

@@ -4,7 +4,7 @@ import de.domisum.lib.auxilium.data.container.math.Vector3D;
 import de.domisum.lib.auxilium.util.StringUtil;
 import de.domisum.lib.auxilium.util.java.annotations.API;
 import de.domisum.lib.auxilium.util.java.annotations.DeserializationNoArgsConstructor;
-import de.domisum.lib.auxilium.util.java.annotations.SetByDeserialization;
+import de.domisum.lib.auxilium.util.java.annotations.InitByDeserialization;
 import de.domisum.lib.auxilium.util.math.VectorUtil;
 import de.domisum.lib.auxiliumspigot.data.container.VectorConverter;
 import de.domisum.lib.auxiliumspigot.util.LocationUtil;
@@ -19,8 +19,9 @@ public class Conversation
 {
 
 	// PROPERTIES
-	@SetByDeserialization private String startComponentId;
-	@SuppressWarnings("MismatchedQueryAndUpdateOfCollection") @SetByDeserialization
+	@InitByDeserialization
+	private String startComponentId;
+	@InitByDeserialization
 	private List<ConversationComponent> components = new ArrayList<>();
 
 	// REFERENCES
@@ -33,7 +34,8 @@ public class Conversation
 
 
 	// INIT
-	@DeserializationNoArgsConstructor public Conversation()
+	@DeserializationNoArgsConstructor
+	public Conversation()
 	{
 
 	}
@@ -44,7 +46,8 @@ public class Conversation
 		this.components = components;
 	}
 
-	@API public Conversation copy()
+	@API
+	public Conversation copy()
 	{
 		List<ConversationComponent> componentsClone = new ArrayList<>();
 		for(ConversationComponent component : this.components)
@@ -125,7 +128,8 @@ public class Conversation
 
 
 	// SETTERS
-	@API public void setBaseLocation(Location baseLocation)
+	@API
+	public void setBaseLocation(Location baseLocation)
 	{
 		this.baseLocation = baseLocation;
 	}

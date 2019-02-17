@@ -10,27 +10,31 @@ public class PlayerCommandComponent extends ConsoleCommandComponent
 {
 
 	// INIT
-	@DeserializationNoArgsConstructor public PlayerCommandComponent()
+	@DeserializationNoArgsConstructor
+	public PlayerCommandComponent()
 	{
-		super();
+
 	}
 
-	@API public PlayerCommandComponent(String command, String successorId)
+	@API
+	public PlayerCommandComponent(String command, String successorId)
 	{
 		super(command, successorId);
 	}
 
 
-	@Override public ConversationComponent clone()
+	@Override
+	public ConversationComponent clone()
 	{
-		return new PlayerCommandComponent(this.command, this.successorId);
+		return new PlayerCommandComponent(command, successorId);
 	}
 
 
 	// COMMAND
-	@Override protected void executeCommand()
+	@Override
+	protected void executeCommand()
 	{
-		Bukkit.dispatchCommand(this.conversation.getPlayer(), this.command);
+		Bukkit.dispatchCommand(conversation.getPlayer(), command);
 	}
 
 }

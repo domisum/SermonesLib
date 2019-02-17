@@ -1,20 +1,22 @@
 package de.domisum.lib.sermones.conversation;
 
 import de.domisum.lib.auxilium.util.java.annotations.DeserializationNoArgsConstructor;
-import de.domisum.lib.auxilium.util.java.annotations.SetByDeserialization;
+import de.domisum.lib.auxilium.util.java.annotations.InitByDeserialization;
 
 public abstract class ConversationComponent
 {
 
 	// PROPERTIES
-	@SetByDeserialization protected String id;
+	@InitByDeserialization
+	protected String id;
 
 	// REFERENCES
 	protected transient Conversation conversation;
 
 
 	// INIT
-	@DeserializationNoArgsConstructor public ConversationComponent()
+	@DeserializationNoArgsConstructor
+	public ConversationComponent()
 	{
 
 	}
@@ -25,7 +27,8 @@ public abstract class ConversationComponent
 	}
 
 
-	@Override public abstract ConversationComponent clone();
+	@Override
+	public abstract ConversationComponent clone();
 
 	public void initialize(Conversation conversation)
 	{

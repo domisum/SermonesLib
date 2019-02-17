@@ -3,7 +3,7 @@ package de.domisum.lib.sermones.conversation.component;
 import de.domisum.lib.auxilium.data.container.math.Vector3D;
 import de.domisum.lib.auxilium.util.java.annotations.API;
 import de.domisum.lib.auxilium.util.java.annotations.DeserializationNoArgsConstructor;
-import de.domisum.lib.auxilium.util.java.annotations.SetByDeserialization;
+import de.domisum.lib.auxilium.util.java.annotations.InitByDeserialization;
 import de.domisum.lib.auxiliumspigot.data.container.VectorConverter;
 import de.domisum.lib.auxiliumspigot.util.SpigotTextUtil;
 import de.domisum.lib.hologram.hologram.Hologram;
@@ -25,8 +25,10 @@ public class NPCTalkComponent extends ConversationComponent
 	private static final int NUMBER_OF_LINES = 3;
 
 	// PROPERTIES
-	@SetByDeserialization protected String text;
-	@SetByDeserialization protected String successorId;
+	@InitByDeserialization
+	protected String text;
+	@InitByDeserialization
+	protected String successorId;
 
 	// REFERENCES
 	protected transient List<String> lines;
@@ -41,66 +43,72 @@ public class NPCTalkComponent extends ConversationComponent
 
 
 	// INIT
-	@DeserializationNoArgsConstructor public NPCTalkComponent()
+	@DeserializationNoArgsConstructor
+	public NPCTalkComponent()
 	{
-		super();
 	}
 
-	@API public NPCTalkComponent(String id, String text, String successorId)
+	@API
+	public NPCTalkComponent(String id, String text, String successorId)
 	{
 		super(id);
 		this.text = text;
 		this.successorId = successorId;
 	}
 
-	@Override public NPCTalkComponent clone()
+	@Override
+	public NPCTalkComponent clone()
 	{
-		return new NPCTalkComponent(this.id, this.text, this.successorId);
+		return new NPCTalkComponent(id, text, successorId);
 	}
 
-	@Override public void initialize(Conversation conversation)
+	@Override
+	public void initialize(Conversation conversation)
 	{
 		super.initialize(conversation);
 
-		this.lines = SpigotTextUtil.splitTextIntoLinesConsideringNewLines(this.text, MAX_LINE_LENGTH);
+		lines = SpigotTextUtil.splitTextIntoLinesConsideringNewLines(text, MAX_LINE_LENGTH);
 	}
 
-	@Override public void terminate()
+	@Override
+	public void terminate()
 	{
 		super.terminate();
 
-		for(Hologram hg : this.holograms)
-			hg.hideFrom(this.conversation.getPlayer());
-		this.holograms.clear();
+		for(Hologram hg : holograms)
+			hg.hideFrom(conversation.getPlayer());
+		holograms.clear();
 
-		this.currentLine = 0;
-		this.currentWord = 0;
-		this.hologramLineOffset = 0;
+		currentLine = 0;
+		currentWord = 0;
+		hologramLineOffset = 0;
 	}
 
 
 	// GETTERS
-	@Override public String getId()
+	@Override
+	public String getId()
 	{
-		return this.id;
+		return id;
 	}
 
 	private TextHologram getHologramForLine(int index)
 	{
-		int adjustedIndex = index-this.hologramLineOffset;
+		int adjustedIndex = index-hologramLineOffset;
 
 		if(adjustedIndex < 0)
 			return null;
 
-		if(adjustedIndex >= this.lines.size())
+		if(adjustedIndex >= lines.size())
 			return null;
 
-		return this.holograms.get(adjustedIndex);
+		return holograms.get(adjustedIndex);
 	}
 
 
 	// UPDATING
-	@Override public void update()
+	@Override
+	public void update()
 	{
 		updateHologramLocations();
 		updateText();
@@ -108,10 +116,10 @@ public class NPCTalkComponent extends ConversationComponent
 
 	protected void updateHologramLocations()
 	{
-		Location offsetLocation = this.conversation.getOffsetLocation(SIDEWARDS_OFFSET);
+		Location offsetLocation = conversation.getOffsetLocation(SIDEWARDS_OFFSET);
 
-		double yOffset = this.holograms.size()*LINE_DISTANCE/2d;
-		for(TextHologram h : this.holograms)
+		double yOffset = holograms.size()*LINE_DISTANCE/2d;
+		for(TextHologram h : holograms)
 		{
 			h.setLocation(VectorConverter.toVector3D(offsetLocation).add(new Vector3D(0, yOffset, 0)));
 
@@ -121,19 +129,19 @@ public class NPCTalkComponent extends ConversationComponent
 
 	private void finish()
 	{
-		if(this.successorId != null)
-			startComponent(this.successorId);
+		if(successorId != null)
+			startComponent(successorId);
 		else
-			this.conversation.terminate();
+			conversation.terminate();
 	}
 
 
 	// TEXT
 	private void updateText()
 	{
-		if(this.updatesToWait > 0)
+		if(updatesToWait > 0)
 		{
-			this.updatesToWait--;
+			updatesToWait--;
 			return;
 		}
 
@@ -143,72 +151,72 @@ public class NPCTalkComponent extends ConversationComponent
 	protected void addWord()
 	{
 		// if all lines have been written, finish this component
-		if(this.currentLine >= this.lines.size())
+		if(currentLine >= lines.size())
 		{
-			if(this.holograms.size() == 0)
+			if(holograms.size() == 0)
 				finish();
 			else
 			{
-				this.holograms.remove(0).hideFrom(this.conversation.getPlayer());
-				this.updatesToWait += 5;
+				holograms.remove(0).hideFrom(conversation.getPlayer());
+				updatesToWait += 5;
 			}
 
 			return;
 		}
 
 		// determine the current line to write and the part of the line that should be displayed
-		String line = this.lines.get(this.currentLine);
+		String line = lines.get(currentLine);
 		String[] splitLine = line.split("\\s+");
 
-		String displayLine = recombineFirstWords(splitLine, this.currentWord+1);
+		String displayLine = recombineFirstWords(splitLine, currentWord+1);
 		// displayLine += ChatColor.MAGIC+line.substring(displayLine.length());
 		displayLine = Conversation.fillUpText(displayLine, line.length());
 
 		// create new hologram or update text for existing one
-		if(this.currentWord == 0)
+		if(currentWord == 0)
 		{
 			createNewHologram(displayLine);
 
-			if(this.holograms.size() > NUMBER_OF_LINES)
+			if(holograms.size() > NUMBER_OF_LINES)
 				removeHologram();
 		}
 		else
-			getHologramForLine(this.currentLine).setText(displayLine);
+			getHologramForLine(currentLine).setText(displayLine);
 
 		// calculate waiting time for next word
-		String word = splitLine[this.currentWord];
-		this.updatesToWait = (int) Math.round(word.length()*0.4)+3;
+		String word = splitLine[currentWord];
+		updatesToWait = (int) Math.round(word.length()*0.4)+3;
 		if(word.endsWith(".") || word.endsWith("?") || word.endsWith("!"))
-			this.updatesToWait += 20;
+			updatesToWait += 20;
 		else if(word.endsWith(",") || word.endsWith(":"))
-			this.updatesToWait += 7;
+			updatesToWait += 7;
 
 		// check if end of line is reached, if so, goto next line
-		this.currentWord++;
-		if(this.currentWord >= splitLine.length)
+		currentWord++;
+		if(currentWord >= splitLine.length)
 		{
-			this.currentLine++;
-			this.currentWord = 0;
+			currentLine++;
+			currentWord = 0;
 		}
 
 		// waiting at the end of the speech
-		if(this.currentLine >= this.lines.size())
-			this.updatesToWait += 20;
+		if(currentLine >= lines.size())
+			updatesToWait += 20;
 	}
 
 	private void createNewHologram(String text)
 	{
-		TextHologram lineHologram = new TextHologram(this.conversation.getBaseLocation().getWorld(), text);
-		this.holograms.add(lineHologram);
+		TextHologram lineHologram = new TextHologram(conversation.getBaseLocation().getWorld(), text);
+		holograms.add(lineHologram);
 		updateHologramLocations();
 
-		lineHologram.showTo(this.conversation.getPlayer());
+		lineHologram.showTo(conversation.getPlayer());
 	}
 
 	private void removeHologram()
 	{
-		this.holograms.remove(0).hideFrom(this.conversation.getPlayer());
-		this.hologramLineOffset++;
+		holograms.remove(0).hideFrom(conversation.getPlayer());
+		hologramLineOffset++;
 	}
 
 

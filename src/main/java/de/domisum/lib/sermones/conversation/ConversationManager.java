@@ -18,7 +18,7 @@ public class ConversationManager
 	private BukkitTask updateTask;
 
 	// STATUS
-	private Map<Player, Conversation> conversations = new PlayerKeyMap<>();
+	private final Map<Player, Conversation> conversations = new PlayerKeyMap<>();
 
 
 	// INIT
@@ -31,18 +31,19 @@ public class ConversationManager
 	{
 		stopUpdateTask();
 
-		for(Conversation c : this.conversations.values())
+		for(Conversation c : conversations.values())
 			c.terminate();
 	}
 
 
 	// CHANGERS
-	@API public void startConversation(Conversation conversation, Player player, Location location)
+	@API
+	public void startConversation(Conversation conversation, Player player, Location location)
 	{
-		if(this.conversations.containsKey(player))
-			this.conversations.get(player).terminate();
+		if(conversations.containsKey(player))
+			conversations.get(player).terminate();
 
-		this.conversations.put(player, conversation);
+		conversations.put(player, conversation);
 		conversation.initialize(player, location);
 	}
 
@@ -50,24 +51,24 @@ public class ConversationManager
 	// UPDATING
 	private void startUpdateTask()
 	{
-		if(this.updateTask != null)
+		if(updateTask != null)
 			return;
 
-		this.updateTask = Bukkit.getScheduler().runTaskTimer(SermonesLib.getPlugin(), this::update, 1, 1);
+		updateTask = Bukkit.getScheduler().runTaskTimer(SermonesLib.getPlugin(), this::update, 1, 1);
 	}
 
 	private void stopUpdateTask()
 	{
-		if(this.updateTask == null)
+		if(updateTask == null)
 			return;
 
-		this.updateTask.cancel();
-		this.updateTask = null;
+		updateTask.cancel();
+		updateTask = null;
 	}
 
 	private void update()
 	{
-		Iterator<Conversation> iterator = this.conversations.values().iterator();
+		Iterator<Conversation> iterator = conversations.values().iterator();
 		while(iterator.hasNext())
 		{
 			Conversation conversation = iterator.next();
