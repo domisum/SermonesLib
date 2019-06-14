@@ -40,7 +40,7 @@ public class Conversation
 
 	}
 
-	private Conversation(String startComponentId, List<ConversationComponent> components)
+	public Conversation(String startComponentId, List<ConversationComponent> components)
 	{
 		this.startComponentId = startComponentId;
 		this.components = components;

@@ -2,7 +2,7 @@ package de.domisum.lib.sermones.conversation.component.choice;
 
 import de.domisum.lib.auxilium.data.container.math.Vector3D;
 import de.domisum.lib.hologram.hologram.TextHologram;
-import de.domisum.lib.hologram.hologram.item.ItemHologram;
+import de.domisum.lib.hologram.hologram.item.ItemDropHologram;
 import de.domisum.lib.hologrammenu.component.HologramMenuComponent;
 import de.domisum.lib.hologrammenu.menu.LocationBoundHologramMenu;
 import de.domisum.lib.sermones.conversation.Conversation;
@@ -37,7 +37,7 @@ class ChoiceHologramMenu extends LocationBoundHologramMenu
 		for(Choice choice : choiceComponent.choices)
 		{
 			TextHologram thg = new TextHologram(processText(choice.getText()));
-			HologramMenuComponent hmc = new HologramMenuComponent<TextHologram>(thg)
+			HologramMenuComponent<TextHologram> hmc = new HologramMenuComponent<TextHologram>(thg)
 			{
 				@Override
 				public void onHover()
@@ -74,9 +74,9 @@ class ChoiceHologramMenu extends LocationBoundHologramMenu
 		if(symbol == null)
 			return;
 
-		ItemHologram ihg = new ItemHologram(symbol);
-		HologramMenuComponent hmc = new HologramMenuComponent(ihg);
-		components.put(hmc, new Vector3D((textHologram.getWidth()/2+ChoiceComponent.SYMBOL_OFFSET)*direction, dY, 0));
+		ItemDropHologram ihg = new ItemDropHologram(symbol);
+		HologramMenuComponent<ItemDropHologram> hmc = new HologramMenuComponent<>(ihg);
+		components.put(hmc, new Vector3D(((textHologram.getWidth()/2)+ChoiceComponent.SYMBOL_OFFSET)*direction, dY, 0));
 	}
 
 
